@@ -5,6 +5,7 @@ import GlobalContext from '@contexts/global';
 import { Tooltip } from 'antd';
 import ExportConversationModal from '@components/ConversationModal/export';
 import EditModal from '@components/EditModal';
+import PremiumButton from '@components/PaymentModal';
 
 interface ContentHeaderProps {
   conversation: Conversation;
@@ -58,6 +59,9 @@ const ContentHeader: FC<ContentHeaderProps> = ({
         </div>
       </div>
       <div>
+        <Tooltip title={i18n.premium}>
+          <PremiumButton />
+        </Tooltip>
         <Tooltip title={i18n.action_output}>
           <ConfigIcon
             name="ri-chat-download-line mr-2"

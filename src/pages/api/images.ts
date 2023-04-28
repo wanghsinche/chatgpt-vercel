@@ -9,6 +9,7 @@ import {
   type MessageTypeProps,
 } from 'midjourney-fetch';
 import { discordImageCdn } from '@configs/server';
+import { withPriceModel } from '@utils/priceModel';
 import {
   apiKeyStrategy,
   apiKeys,
@@ -23,7 +24,7 @@ import {
 
 export { config };
 
-export const get: APIRoute = async ({ request }) => {
+export const get: APIRoute = withPriceModel(async ({ request }) => {
   const { url, headers } = request;
   const params = new URL(url).searchParams;
 
@@ -64,7 +65,6 @@ export const get: APIRoute = async ({ request }) => {
       token,
     });
     midjourney.debugger = true;
-
     try {
       let options: MessageTypeProps = { type: 'imagine', timestamp };
 
@@ -118,13 +118,12 @@ export const get: APIRoute = async ({ request }) => {
       });
     }
   }
-
   return new Response('{}', {
     status: 200,
   });
-};
+});
 
-export const post: APIRoute = async ({ request }) => {
+export const post: APIRoute = withPriceModel(async ({ request }) => {
   const body = await request.json();
   const {
     prompt,
@@ -280,4 +279,4 @@ export const post: APIRoute = async ({ request }) => {
       status: 500,
     });
   }
-};
+});
