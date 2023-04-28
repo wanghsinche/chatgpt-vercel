@@ -74,20 +74,19 @@ export const parseConversation = (text: string): Omit<Conversation, 'id'> => {
   };
 };
 
-export const setClassByLayout = (layout?: LayoutConfig) => {
-  const container = document.querySelector('#container');
-  const classMap: Record<LayoutConfig, string> = {
-    default: 'container-default',
-    loose: 'container-loose',
-    full: 'container-full',
-  };
-  const targetClass = classMap[layout ?? 'default'];
-  container.className = targetClass;
-};
-
-export const registerMediumZoom = (isMobile = false) => {
-  mediumZoom('.prose img:not(.medium-zoom-image)', {
-    background: 'rgba(0, 0, 0, 0.6)',
-    margin: isMobile ? 16 : 48,
-  });
+export const wxGoToHell = () => {
+  if (navigator.userAgent.indexOf('MicroMessenger') >= 0) {
+    const div = document.createElement('div');
+    div.innerHTML =
+      '<p>请点击右上角菜单图标，选择在手机浏览器中打开，推荐在电脑端使用</p>';
+    div.style.position = 'fixed';
+    div.style.top = '0';
+    div.style.left = '0';
+    div.style.width = '100%';
+    div.style.background = '#333';
+    div.style.color = '#fff';
+    div.style.padding = '10px';
+    div.style.zIndex = '9999';
+    document.body.appendChild(div);
+  }
 };

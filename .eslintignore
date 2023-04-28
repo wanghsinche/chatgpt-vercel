@@ -1,2 +1,5 @@
 node_modules
 dist
+test.*
+resetpassword.astro
+wepay.astro

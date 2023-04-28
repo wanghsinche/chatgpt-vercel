@@ -5,11 +5,12 @@ import { createParser } from 'eventsource-parser';
 import { defaultModel, supportedModels } from '@configs';
 import { Message } from '@interfaces';
 import { loadBalancer } from '@utils/server';
+import { withPriceModel } from '@utils/priceModel';
 import { apiKeyStrategy, apiKeys, baseURL, config, password as pwd } from '.';
 
 export { config };
 
-export const post: APIRoute = async ({ request }) => {
+const originalPost: APIRoute = async ({ request }) => {
   if (!baseURL) {
     return new Response(JSON.stringify({ msg: 'No LOCAL_PROXY provided' }), {
       status: 400,
@@ -112,3 +113,5 @@ export const post: APIRoute = async ({ request }) => {
     });
   }
 };
+
+export const post = withPriceModel(originalPost);
