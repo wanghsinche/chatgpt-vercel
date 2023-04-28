@@ -5,7 +5,6 @@ import node from '@astrojs/node';
 import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
 import checker from 'vite-plugin-checker';
-
 // https://astro.build/config
 export default defineConfig({
   integrations: [solidJs(), tailwind(), react()],
@@ -14,6 +13,9 @@ export default defineConfig({
     ? vercel({ analytics: true })
     : node({ mode: 'standalone' }),
   vite: {
+    define: {
+      'process.env': process.env
+    },  
     plugins: [
       checker({
         typescript: true,
