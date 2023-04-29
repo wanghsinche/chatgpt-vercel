@@ -32,5 +32,6 @@
   "chat_mode_image": "图像生成对话",
   "success_copy": "复制成功",
   "success_import": "导入成功",
-  "logout":"退出账号"
+  "logout":"退出账号",
+  "credit": "额度"
 }

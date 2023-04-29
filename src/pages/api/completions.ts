@@ -1,15 +1,46 @@
 /* eslint-disable no-console */
-import type { APIRoute } from 'astro';
+import type { APIRoute, APIContext } from 'astro';
 import type { ParsedEvent, ReconnectInterval } from 'eventsource-parser';
 import { createParser } from 'eventsource-parser';
 import { defaultModel, supportedModels } from '@configs';
 import { Message } from '@interfaces';
 import { loadBalancer } from '@utils/server';
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { calculateCost, priceList } from '@utils/token';
 import { apiKeyStrategy, apiKeys, baseURL, config, password as pwd } from '.';
+
+const supabaseKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
 
 export { config };
 
-export const post: APIRoute = async ({ request }) => {
+export const post: APIRoute = async (ctx: APIContext) => {
+  const { request, cookies } = ctx;
+
+  // format astro cookie to nextjs cookie
+
+  const nextjsCookies: Record<string, string> = {
+    'supabase-auth-token': cookies.get('supabase-auth-token')?.value,
+  };
+  // Create authenticated Supabase Client
+  const supabase = createServerSupabaseClient(
+    { ...ctx, req: { ...request, cookies: nextjsCookies } },
+    {
+      supabaseKey,
+      supabaseUrl,
+    }
+  );
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    return new Response(JSON.stringify({ msg: 'No Login' }), {
+      status: 400,
+    });
+  }
+
   if (!baseURL) {
     return new Response(JSON.stringify({ msg: 'No LOCAL_PROXY provided' }), {
       status: 400,
@@ -50,6 +81,20 @@ export const post: APIRoute = async ({ request }) => {
       }
     );
   }
+
+  // Run queries with RLS on the server
+  const { data: subscription } = await supabase
+    .from('subscription')
+    .select('credit, expired_at');
+
+  console.log(subscription, priceList[model], model);
+
+  console.log(
+    calculateCost(
+      messages.reduce((am, cur: Message) => `${am} ${cur.content}`, ''),
+      priceList[model] || priceList['gpt-4-32k-0314']
+    )
+  );
 
   try {
     const res = await fetch(`https://${baseURL}/v1/chat/completions`, {
