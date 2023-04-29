@@ -1,5 +1,6 @@
 ---
 import Main from '@modules/Main';
+import AuthWrap from '@modules/AuthWrap';
 import type { Lang } from '@interfaces';
 import Layout from '@/layouts/Layout.astro';
 import 'katex/dist/katex.min.css';
@@ -9,13 +10,19 @@ export const prerender = true;
 
 // read lang from env/process.env
 const lang: Lang = import.meta.env.LANGUAGE || process.env.LANGUAGE || 'en';
-const key: string = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
 ---
 
 <Layout title="ChatGPT">
-  {key}
   <div id="container">
-    <Main lang={lang} client:only="react" />
+    <AuthWrap
+      client:only="react"
+      supabaseUrl={supabaseUrl}
+      supabaseKey={supabaseKey}
+    >
+      <Main client:only="react" lang={lang} />
+    </AuthWrap>
   </div>
 </Layout>
 
