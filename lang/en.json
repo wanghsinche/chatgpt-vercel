@@ -31,5 +31,6 @@
   "chat_mode_text": "Text conversation",
   "chat_mode_image": "Image generation conversation",
   "success_copy": "Copy successfully",
-  "success_import": "Import successfully"
+  "success_import": "Import successfully",
+  "logout":"Log Out"
 }
