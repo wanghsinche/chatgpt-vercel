@@ -21,7 +21,8 @@
     "astro": "astro",
     "lint": "eslint --fix --quiet --ext .js,.ts,.tsx,.astro .",
     "lintcheck": "eslint --quiet --ext .js,.ts,.tsx,.astro .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "stripe-forward":"stripe listen --forward-to localhost:3000/api/stripe"
   },
   "dependencies": {
     "@astrojs/node": "^5.1.1",
@@ -47,6 +48,7 @@
     "react-dom": "^18.0.0",
     "replicate-fetch": "^0.1.1",
     "solid-js": "^1.6.15",
+    "stripe": "^12.3.0",
     "swr": "^2.1.5"
   },
   "devDependencies": {

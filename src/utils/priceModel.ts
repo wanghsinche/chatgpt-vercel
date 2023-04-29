@@ -151,7 +151,7 @@ export const withPriceModel =
 */
     const { error: updateErr } = await supabase
       .from('subscription')
-      .update({ credit })
+      .update({ credit: Math.max(0, credit) })
       .eq('id', session.user.id);
 
     if (updateErr) {

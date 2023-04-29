@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { APIRoute, APIContext } from 'astro';
+import type { APIRoute } from 'astro';
 import type { ParsedEvent, ReconnectInterval } from 'eventsource-parser';
 import { createParser } from 'eventsource-parser';
 import { defaultModel, supportedModels } from '@configs';
