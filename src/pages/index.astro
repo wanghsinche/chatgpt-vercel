@@ -1,6 +1,5 @@
 ---
-import Main from '@modules/Main';
-import AuthWrap from '@modules/AuthWrap';
+import MainWithAuth from '@modules/MainWithAuth';
 import type { Lang } from '@interfaces';
 import Layout from '@/layouts/Layout.astro';
 import 'katex/dist/katex.min.css';
@@ -16,13 +15,12 @@ const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
 
 <Layout title="ChatGPT">
   <div id="container">
-    <AuthWrap
+    <MainWithAuth
       client:only="react"
       supabaseUrl={supabaseUrl}
       supabaseKey={supabaseKey}
-    >
-      <Main client:only="react" lang={lang} />
-    </AuthWrap>
+      lang={lang}
+    />
   </div>
 </Layout>
 

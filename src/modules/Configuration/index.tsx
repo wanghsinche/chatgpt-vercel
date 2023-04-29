@@ -11,6 +11,7 @@ import {
   supportedLanguages,
   supportedModels,
 } from '@configs';
+import { useUser } from '@supabase/auth-helpers-react';
 
 interface ConfigurationProps {
   setActiveSetting: ReactSetState<boolean>;
@@ -29,6 +30,8 @@ const Configuration: FC<ConfigurationProps> = ({
     setConfigs(newConfigs);
     localStorage.setItem(globalConfigLocalKey, JSON.stringify(newConfigs));
   };
+
+  const myself = useUser();
 
   return (
     <div className="border-l border-l-[#edeeee] h-full flex flex-col">
@@ -56,6 +59,9 @@ const Configuration: FC<ConfigurationProps> = ({
         </div>
       </div>
       <div className="pl-5 pr-5 pt-4 pb-4 text-sm flex flex-1 flex-col overflow-auto common-scrollbar">
+        <div className="mb-6">
+          <div className="mb-2">{myself?.email || myself?.id}</div>
+        </div>
         <div className="mb-6">
           <div className="mb-2">{i18n.config_password}</div>
           <Input

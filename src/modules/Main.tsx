@@ -18,9 +18,7 @@ import Configuration from './Configuration';
 
 const styles = getComputedStyle(document.documentElement);
 
-const Main: FC<{ lang: Lang; supabaseUrl: string; supabaseKey: string }> = ({
-  lang,
-}) => {
+const Main: FC<{ lang: Lang }> = ({ lang }) => {
   // gloabl configs
   const [configs, setConfigs] = useState<Partial<GlobalConfig>>({});
 
