@@ -25,12 +25,9 @@ function Account() {
   );
 
   function handleLogout() {
-    supabaseClient.auth
-      .signOut()
-      .then(() => window.location.reload())
-      .catch((err) => {
-        message.error(`Error logging out: ${err.message}`);
-      });
+    supabaseClient.auth.signOut().catch((err) => {
+      message.error(`Error logging out: ${err.message}`);
+    });
   }
 
   return (
