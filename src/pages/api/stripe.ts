@@ -81,8 +81,8 @@ export const post: APIRoute = async ({ request }) => {
   try {
     event = await stripe.webhooks.constructEventAsync(
       body,
-      signature!,
-      webhookSecret!,
+      signature,
+      webhookSecret,
       undefined,
       cryptoProvider
     );
@@ -95,7 +95,6 @@ export const post: APIRoute = async ({ request }) => {
   let addCredit = 0;
   let newExpired = 0;
   let email: string;
-  let updateResult;
   // Handle the event
   switch (event.type) {
     case 'checkout.session.completed':

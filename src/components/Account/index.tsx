@@ -14,14 +14,19 @@ function Account() {
     data: subscription,
     error,
     isValidating,
-  } = swr(myself ?? 'getCredit', async () =>
-    supabaseClient.from('subscription').select<
-      'credit, expired_at',
-      {
-        credit: number;
-        expired_at: Date;
-      }
-    >('credit, expired_at')
+  } = swr(
+    myself ?? 'getCredit',
+    async () =>
+      supabaseClient.from('subscription').select<
+        'credit, expired_at',
+        {
+          credit: number;
+          expired_at: Date;
+        }
+      >('credit, expired_at'),
+    {
+      refreshInterval: 60,
+    }
   );
 
   function handleLogout() {
