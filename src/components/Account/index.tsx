@@ -36,7 +36,8 @@ function Account() {
       <Space align="center">
         <Spin spinning={isValidating}>
           <Tag color="gold" title={i18n.credit}>
-            {i18n.credit}: {error || subscription?.data?.[0]?.credit}
+            {i18n.credit}:{' '}
+            {Number(error || subscription?.data?.[0]?.credit) / 1000} M
           </Tag>
         </Spin>
         <Tooltip title={i18n.logout}>

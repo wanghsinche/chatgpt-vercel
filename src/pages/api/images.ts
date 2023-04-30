@@ -3,11 +3,12 @@ import type { APIRoute } from 'astro';
 import { loadBalancer } from '@utils/server';
 import { createOpenjourney } from 'replicate-fetch';
 import { SupportedImageModels } from '@configs';
+import { withPriceModel } from '@utils/priceModel';
 import { apiKeyStrategy, apiKeys, baseURL, config, password as pwd } from '.';
 
 export { config };
 
-export const post: APIRoute = async ({ request }) => {
+const originalPost: APIRoute = async ({ request }) => {
   if (!baseURL) {
     return new Response(JSON.stringify({ msg: 'No LOCAL_PROXY provided' }), {
       status: 400,
@@ -87,3 +88,5 @@ export const post: APIRoute = async ({ request }) => {
     });
   }
 };
+
+export const post = withPriceModel(originalPost);

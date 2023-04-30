@@ -60,7 +60,7 @@ const Configuration: FC<ConfigurationProps> = ({
         <div className="mb-6">
           <Account />
         </div>
-        <div className="mb-6">
+        <div className="mb-6 hidden">
           <div className="mb-2">{i18n.config_password}</div>
           <Input
             className="w-full"
@@ -72,7 +72,7 @@ const Configuration: FC<ConfigurationProps> = ({
             }
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-6" hidden>
           <div className="mb-2">OpenAI Api Key:</div>
           <Input
             className="w-full"
@@ -162,10 +162,10 @@ const Configuration: FC<ConfigurationProps> = ({
             }
           />
         </div>
-        <Divider className="!mt-6 !mb-6" orientation="left" plain>
+        {/* <Divider className="!mt-6 !mb-6" orientation="left" plain>
           {i18n.chat_mode_image}
-        </Divider>
-        <div className="flex items-center justify-between mb-6">
+        </Divider> */}
+        <div className="flex items-center justify-between mb-6 hidden">
           <div>{i18n.config_model}</div>
           <Select
             className="w-1/2"
@@ -177,7 +177,7 @@ const Configuration: FC<ConfigurationProps> = ({
             onChange={(imageModel) => updateConfigsAndStorages({ imageModel })}
           />
         </div>
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6 hidden">
           <div>{i18n.config_images_size}</div>
           <Select
             className="w-1/2"
@@ -189,7 +189,7 @@ const Configuration: FC<ConfigurationProps> = ({
             onChange={(imageSize) => updateConfigsAndStorages({ imageSize })}
           />
         </div>
-        <div>
+        <div className="hidden">
           <div className="mb-2">{i18n.config_images_count}</div>
           <Slider
             className="w-full"

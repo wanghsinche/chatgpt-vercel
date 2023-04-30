@@ -33,5 +33,10 @@
   "success_copy": "复制成功",
   "success_import": "导入成功",
   "logout":"退出账号",
-  "credit": "额度"
+  "credit": "流量",
+  "payment": "付款",
+  "premium": "充值",
+  "account": "账号",
+  "expired_date": "下个结算日期",
+  "expire_credit": "即将到期流量"
 }

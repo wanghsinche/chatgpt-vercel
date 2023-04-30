@@ -33,5 +33,10 @@
   "success_copy": "Copy successfully",
   "success_import": "Import successfully",
   "logout":"Log out",
-  "credit":"Credit"
+  "credit":"Credit",
+  "payment": "Payment",
+  "premium": "Premium",
+  "account": "Account",
+  "expired_date": "Next expired Date",
+  "expire_credit": "Credits about to expire"
 }

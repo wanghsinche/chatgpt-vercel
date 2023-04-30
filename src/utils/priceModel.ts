@@ -43,7 +43,6 @@ export function calculateCost(
 
 const supabaseKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
-const paymentUrl = import.meta.env.SUBSCRIPTION_URL;
 
 export const withPriceModel =
   (routeFn: APIRoute) => async (ctx: APIContext) => {
@@ -129,7 +128,9 @@ export const withPriceModel =
     if (credit <= 0) {
       return appendHeader(
         new Response(
-          JSON.stringify({ msg: `Please add more credit: ${paymentUrl}` }),
+          JSON.stringify({
+            msg: `Please click the premium button to add more credit \n 请点击充值按钮添加更多流量`,
+          }),
           {
             status: 400,
           }
