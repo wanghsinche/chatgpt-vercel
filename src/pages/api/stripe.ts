@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabasePrivateKey = import.meta.env.NEXT_PRIVATE_SUPABASE_SERVICE_KEY;
 const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
 
 const stripeKey: string = import.meta.env.STRIPE_APIKEY;
@@ -19,7 +19,7 @@ const productDetail = {
   default: { product: 'default', credit: 100, duration: oneMonth },
 };
 
-const subapaseClient = createClient(supabaseUrl, supabaseKey);
+const subapaseClient = createClient(supabaseUrl, supabasePrivateKey);
 
 const stripe = new Stripe(stripeKey, {
   // This is needed to use the Fetch API rather than relying on the Node http
