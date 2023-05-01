@@ -9,9 +9,9 @@ import {
   Descriptions,
 } from 'antd';
 import GlobalContext from '@contexts/global';
-import { useSessionContext, useUser } from '@supabase/auth-helpers-react';
 import swr from 'swr';
 import { consumptionEveryTime } from '@configs';
+import type { IAccount } from '@pages/api/account';
 
 interface PaymentModalProps {
   onOk: () => void;
@@ -25,29 +25,20 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
   ...rest
 }) => {
   const { i18n, isMobile } = useContext(GlobalContext);
-  const { supabaseClient } = useSessionContext();
-  const myself = useUser();
 
   const {
-    data: subscription,
+    data: account,
     error,
     isValidating,
-  } = swr(myself ?? 'getCredit', async () =>
-    supabaseClient
-      .from('subscription')
-      .select<
-        'credit, expired_at',
-        {
-          credit: number;
-          expired_at: Date;
-        }
-      >('credit, expired_at')
-      .eq('id', myself.id)
+  } = swr<IAccount>('account', async () =>
+    fetch('/api/account', {
+      method: 'get',
+    }).then((res) => res.json())
   );
 
   const paymentBtn = (
     <stripe-buy-button
-      customer-email={myself?.email}
+      customer-email={account?.email}
       buy-button-id={btnId}
       publishable-key={pubKey}
     ></stripe-buy-button>
@@ -55,7 +46,7 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
 
   const toBeExpired = Math.min(
     consumptionEveryTime,
-    Number(error || subscription?.data?.[0]?.credit)
+    Number(error || account?.credit)
   );
 
   return (
@@ -69,19 +60,15 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
       <div className="mt-[12px]">
         <Descriptions column={2}>
           <Descriptions.Item label={i18n.account}>
-            {myself?.email || myself?.id}
+            {account?.email || account?.id}
           </Descriptions.Item>
           <Descriptions.Item label={i18n.credit}>
             <Tag color="gold" title={i18n.credit}>
-              {Number(error || subscription?.data?.[0]?.credit) / 1000}M{' '}
-              {i18n.credit}
+              {Number(error || account?.credit) / 1000}M {i18n.credit}
             </Tag>
           </Descriptions.Item>
           <Descriptions.Item label={i18n.expired_date}>
-            {error ||
-              new Date(
-                subscription?.data?.[0]?.expired_at
-              ).toLocaleDateString()}
+            {error || new Date(account?.expired_at).toLocaleDateString()}
           </Descriptions.Item>
           <Descriptions.Item label={i18n.expire_credit}>
             <Tag color="red" title={i18n.credit}>
@@ -91,7 +78,7 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
         </Descriptions>
       </div>
       <div className="mt-[12px] flex items-center justify-center">
-        {!myself || isValidating ? <Skeleton /> : paymentBtn}
+        {!account || isValidating ? <Skeleton /> : paymentBtn}
       </div>
       <div className="mt-[12px] flex items-center flex-row-reverse">
         <Space>

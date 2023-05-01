@@ -1,51 +1,45 @@
 import GlobalContext from '@contexts/global';
-import { useSessionContext, useUser } from '@supabase/auth-helpers-react';
 import { Space, Tooltip, message, Tag, Spin } from 'antd';
 import ConfigIcon from '@components/ConfigIcon';
 import swr from 'swr';
 import { useContext } from 'react';
+import type { IAccount } from '@pages/api/account';
 
 function Account() {
-  const { supabaseClient } = useSessionContext();
-  const myself = useUser();
   const { i18n } = useContext(GlobalContext);
 
   const {
-    data: subscription,
+    data: account,
     error,
     isValidating,
-  } = swr(
-    myself ?? 'getCredit',
+  } = swr<IAccount>(
+    'account',
     async () =>
-      supabaseClient
-        .from('subscription')
-        .select<
-          'credit, expired_at',
-          {
-            credit: number;
-            expired_at: Date;
-          }
-        >('credit, expired_at')
-        .eq('id', myself.id),
-    {
-      refreshInterval: 60000,
-    }
+      fetch('/api/account', {
+        method: 'get',
+      }).then((res) => res.json()),
+    { refreshInterval: 60000 }
   );
 
   function handleLogout() {
-    supabaseClient.auth.signOut().catch((err) => {
-      message.error(`Error logging out: ${err.message}`);
-    });
+    fetch('/api/logout', {
+      method: 'post',
+    })
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        message.error(`Error logging out: ${err.message}`);
+      });
   }
 
   return (
     <div>
-      <div className="mb-2 break-all">{myself?.email || myself?.id}</div>
+      <div className="mb-2 break-all">{account?.email || account?.id}</div>
       <Space align="center">
         <Spin spinning={isValidating}>
           <Tag color="gold" title={i18n.credit}>
-            {i18n.credit}:{' '}
-            {Number(error || subscription?.data?.[0]?.credit) / 1000} M
+            {i18n.credit}: {Number(error || account?.credit) / 1000} M
           </Tag>
         </Spin>
         <Tooltip title={i18n.logout}>
