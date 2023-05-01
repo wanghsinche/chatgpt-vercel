@@ -74,6 +74,7 @@ async function updateCredit(
 
 export const post: APIRoute = async ({ request }) => {
   const signature = request.headers.get('Stripe-Signature');
+  console.log(`🔔 signature received: ${signature}`);
 
   // First step is to verify the event. The .text() method must be used as the
   // verification relies on the raw request body rather than the parsed JSON.
