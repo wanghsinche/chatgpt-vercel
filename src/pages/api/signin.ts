@@ -18,6 +18,19 @@ export function stringifySupabaseSession(session: Session) {
   ]);
 }
 
+export function setSession(result: Response, session: Session) {
+  const maxAge = 60 * 60 * 24 * 7;
+
+  result.headers.set(
+    'Set-Cookie',
+    `${cookieName}=${stringifySupabaseSession(
+      session
+    )};path=/;Max-Age=${maxAge};HttpOnly}`
+  );
+
+  return result;
+}
+
 export const post: APIRoute = async ({ request, cookies }) => {
   const supabaseClient = createRouteHandlerSupabaseClient({
     supabaseUrl,
@@ -41,15 +54,8 @@ export const post: APIRoute = async ({ request, cookies }) => {
     );
   }
 
-  const result = new Response(JSON.stringify({ msg: 'ok' }), { status: 200 });
-
-  const maxAge = 60 * 60 * 24 * 7;
-
-  result.headers.set(
-    'Set-Cookie',
-    `${cookieName}=${stringifySupabaseSession(
-      myselfRes.data.session
-    )};path=/;Max-Age=${maxAge};HttpOnly}`
+  return setSession(
+    new Response(JSON.stringify({ msg: 'ok' }), { status: 200 }),
+    myselfRes.data.session
   );
-  return result;
 };
