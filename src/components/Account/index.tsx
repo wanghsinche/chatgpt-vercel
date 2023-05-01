@@ -17,13 +17,16 @@ function Account() {
   } = swr(
     myself ?? 'getCredit',
     async () =>
-      supabaseClient.from('subscription').select<
-        'credit, expired_at',
-        {
-          credit: number;
-          expired_at: Date;
-        }
-      >('credit, expired_at'),
+      supabaseClient
+        .from('subscription')
+        .select<
+          'credit, expired_at',
+          {
+            credit: number;
+            expired_at: Date;
+          }
+        >('credit, expired_at')
+        .eq('id', myself.id),
     {
       refreshInterval: 60,
     }

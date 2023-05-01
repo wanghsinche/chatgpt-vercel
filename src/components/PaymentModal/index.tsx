@@ -29,13 +29,16 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
     error,
     isValidating,
   } = swr(myself ?? 'getCredit', async () =>
-    supabaseClient.from('subscription').select<
-      'credit, expired_at',
-      {
-        credit: number;
-        expired_at: Date;
-      }
-    >('credit, expired_at')
+    supabaseClient
+      .from('subscription')
+      .select<
+        'credit, expired_at',
+        {
+          credit: number;
+          expired_at: Date;
+        }
+      >('credit, expired_at')
+      .eq('id', myself.id)
   );
 
   const paymentBtn = (
