@@ -63,7 +63,8 @@ async function updateCredit(
 
   const { error } = await subapaseClient
     .from('subscription')
-    .update({
+    .upsert({
+      id: uid,
       credit,
       expired_at: newExpired.toISOString(),
     })

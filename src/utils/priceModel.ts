@@ -102,7 +102,8 @@ export const withPriceModel =
     // Run queries with RLS on the server
     const { data: subscription } = await supabase
       .from('subscription')
-      .select('credit, expired_at');
+      .select('credit, expired_at')
+      .eq('id', session.user.id);
 
     let credit = subscription?.[0]?.credit;
 
@@ -123,9 +124,9 @@ export const withPriceModel =
 
     credit -= cost;
 
-    // console.log(subscription, priceList[model], model, cost, credit);
+    console.log(subscription, priceList[model], model, cost, credit);
 
-    if (credit <= 0) {
+    if (!credit || credit <= 0) {
       return appendHeader(
         new Response(
           JSON.stringify({
