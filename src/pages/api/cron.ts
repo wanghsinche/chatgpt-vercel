@@ -43,7 +43,7 @@ async function updateCredit() {
     });
 }
 
-export const post: APIRoute = async ({ request }) => {
+export const get: APIRoute = async () => {
   console.log('Cron Job at ', new Date().toISOString());
   updateCredit();
   return new Response(JSON.stringify({ msg: 'ok' }), { status: 200 });
