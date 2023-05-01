@@ -59,3 +59,5 @@ export const defaultConversation: Omit<Conversation, 'title'> = {
   mode: 'text',
   createdAt: Date.now(),
 };
+
+export const consumptionEveryTime = 2000;

@@ -11,10 +11,14 @@ import {
 import GlobalContext from '@contexts/global';
 import { useSessionContext, useUser } from '@supabase/auth-helpers-react';
 import swr from 'swr';
+import { consumptionEveryTime } from '@configs';
 
 interface PaymentModalProps {
   onOk: () => void;
 }
+
+const btnId = import.meta.env.PUBLIC_STRIPE_BUY_BUTTON_ID;
+const pubKey = import.meta.env.PUBLIC_STRIPE_PUB_KEY;
 
 const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
   onOk,
@@ -44,13 +48,13 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
   const paymentBtn = (
     <stripe-buy-button
       customer-email={myself?.email}
-      buy-button-id="buy_btn_1N2HUJFMVPfRQBioxcZ3Row4"
-      publishable-key="pk_test_51KKl12FMVPfRQBioHtGo3lrgDGaYEPq819aVu47iPquqUXu3dhP3RlYqhKVRDhsnNLGzHoJ4y64sYnOVXx7MI7Op00RI6on2zx"
+      buy-button-id={btnId}
+      publishable-key={pubKey}
     ></stripe-buy-button>
   );
 
   const toBeExpired = Math.min(
-    2000,
+    consumptionEveryTime,
     Number(error || subscription?.data?.[0]?.credit)
   );
 
