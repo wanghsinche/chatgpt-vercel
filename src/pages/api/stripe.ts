@@ -1,4 +1,6 @@
 import type { APIRoute } from 'astro';
+// https://github.com/stripe/stripe-node/issues/1732
+import 'event-target-polyfill';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
