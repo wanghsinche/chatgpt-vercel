@@ -28,7 +28,7 @@ function Account() {
         >('credit, expired_at')
         .eq('id', myself.id),
     {
-      refreshInterval: 60,
+      refreshInterval: 60000,
     }
   );
 
