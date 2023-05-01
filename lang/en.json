@@ -37,6 +37,6 @@
   "payment": "Payment",
   "premium": "Premium",
   "account": "Account",
-  "expired_date": "Next expired Date",
-  "expire_credit": "Credits about to expire"
+  "expired_date": "Next expired date",
+  "expire_credit": "Next expired credits"
 }
