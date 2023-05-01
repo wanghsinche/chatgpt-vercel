@@ -58,7 +58,7 @@ async function updateCredit(
     )
     .eq('id', uid);
 
-  let credit = details.data[0]?.credit;
+  let credit = details.data[0]?.credit || 0;
   credit += addCredit;
 
   const { error } = await subapaseClient
