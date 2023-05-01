@@ -31,6 +31,7 @@ async function updateCredit() {
   const tasks = toExpired.map((rec) =>
     subapaseClient.from('subscription').update(rec).eq('id', rec.id)
   );
+  console.log('toExpired', toExpired);
 
   await Promise.all(tasks)
     .then((res) => {
@@ -39,7 +40,7 @@ async function updateCredit() {
       });
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 }
 
