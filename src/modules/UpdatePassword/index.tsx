@@ -1,3 +1,4 @@
+import { myRequest } from '@utils/request';
 import { Form, Input, Button, notification } from 'antd';
 import { useState } from 'react';
 
@@ -5,32 +6,33 @@ const ChangePasswordForm = () => {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<Error>();
 
-  const onFinish = (values) => {
-    console.log('Received values of form:', values);
+  const onFinish = async (values) => {
     // Here, you can handle the logic for submitting the form and updating the user's password
     // You can make an API request to the server and show a notification to the user when the update is successful
-    notification.success({
-      message: 'Password updated',
-      description: 'Your password has been updated successfully.',
-    });
+    setLoading(true);
+    setErr(null);
+    try {
+      await myRequest('/api/resetpassword', {
+        method: 'post',
+        body: JSON.stringify(values),
+      });
+      notification.success({
+        message: 'Password updated',
+        description: 'Your password has been updated successfully.',
+      });
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
+    } catch (error) {
+      setErr(error);
+    }
+    setLoading(false);
   };
 
   const dom = (
     <Form name="change_password" onFinish={onFinish} className="my-8">
       <Form.Item
-        name="current_password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your current password!',
-          },
-        ]}
-      >
-        <Input.Password placeholder="Current Password" />
-      </Form.Item>
-
-      <Form.Item
-        name="new_password"
+        name="password"
         rules={[
           {
             required: true,
@@ -43,7 +45,7 @@ const ChangePasswordForm = () => {
 
       <Form.Item
         name="confirm_password"
-        dependencies={['new_password']}
+        dependencies={['password']}
         rules={[
           {
             required: true,
@@ -51,7 +53,7 @@ const ChangePasswordForm = () => {
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
-              if (!value || getFieldValue('new_password') === value) {
+              if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
               return Promise.reject(
