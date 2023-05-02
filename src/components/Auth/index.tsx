@@ -132,7 +132,7 @@ const Auth: FC<IAuthProps> = ({ showLinks = true }) => {
                 setUIType('forgetPassword');
               }}
             >
-              忘记密码?
+              forget password?
             </Button>
           )}
         </div>
