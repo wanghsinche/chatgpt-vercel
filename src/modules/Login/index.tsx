@@ -1,7 +1,8 @@
-import { Auth } from '@supabase/auth-ui-react';
+// import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { FC, PropsWithChildren } from 'react';
+import Auth from '@components/Auth';
 
 // https://github.com/withastro/astro/issues/2903
 const homepage = import.meta.env.PUBLIC_HOMEPAGE;
@@ -21,11 +22,11 @@ const LoginPage: FC<PropsWithChildren<Record<string, unknown>>> = ({
         </div>
         <Auth
           showLinks={!disableSignUp}
-          redirectTo={homepage}
-          appearance={{ theme: ThemeSupa }}
-          supabaseClient={supabaseClient}
-          providers={[]}
-          socialLayout="horizontal"
+          // redirectTo={homepage}
+          // appearance={{ theme: ThemeSupa }}
+          // supabaseClient={supabaseClient}
+          // providers={[]}
+          // socialLayout="horizontal"
         />
       </div>
     );
