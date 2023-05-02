@@ -18,7 +18,6 @@ const supabaseClient = createRouteHandlerSupabaseClient({
   cookies: () => Astro.cookies,
 });
 const myself = await supabaseClient.auth.getUser();
-console.log('🏠', myself.data.user, myself.error, '---');
 ---
 
 <Layout title="ChatGPT">
