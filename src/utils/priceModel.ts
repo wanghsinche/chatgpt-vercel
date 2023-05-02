@@ -1,6 +1,6 @@
 import { SupportedModel, defaultModel } from '@configs/index';
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import type { APIRoute, APIContext, EndpointOutput } from 'astro';
+import { createRouteHandlerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import type { APIRoute, APIContext } from 'astro';
 
 export const priceList: Record<SupportedModel, number> = {
   'gpt-4': 0.06,
@@ -48,55 +48,22 @@ export const withPriceModel =
   (routeFn: APIRoute) => async (ctx: APIContext) => {
     const { request, cookies } = ctx;
 
-    // format astro cookie to nextjs cookie
-
-    const nextjsCookies: Record<string, string> = {
-      'supabase-auth-token': cookies.get('supabase-auth-token')?.value,
-    };
-
-    const nextjsHeaders: Record<string, string> = {};
-
-    request.headers.forEach((v, k) => {
-      nextjsHeaders[k] = v;
-    });
-
-    const resHeader = new Headers();
-
-    function appendHeader(res: Response | EndpointOutput, headers: Headers) {
-      if (!('headers' in res)) return res;
-      headers.forEach((v, k) => {
-        res.headers.set(k, v);
-      });
-      return res;
-    }
-
     // Create authenticated Supabase Client
-    const supabase = createServerSupabaseClient(
-      {
-        ...ctx,
-        req: { ...request, cookies: nextjsCookies, headers: nextjsHeaders },
-        res: {
-          getHeader: (s: string) => resHeader.get(s),
-          setHeader: (n: string, v: string) => resHeader.set(n, v),
-        },
-      },
-      {
-        supabaseKey,
-        supabaseUrl,
-      }
-    );
+    const supabase = createRouteHandlerSupabaseClient({
+      supabaseKey,
+      supabaseUrl,
+      headers: () => request.headers,
+      cookies: () => cookies,
+    });
 
     const {
       data: { session },
     } = await supabase.auth.getSession();
 
     if (!session?.user) {
-      return appendHeader(
-        new Response(JSON.stringify({ msg: 'No Login' }), {
-          status: 400,
-        }),
-        resHeader
-      );
+      return new Response(JSON.stringify({ msg: 'No Login' }), {
+        status: 400,
+      });
     }
 
     // Run queries with RLS on the server
@@ -127,16 +94,13 @@ export const withPriceModel =
     console.log(subscription, priceList[model], model, cost, credit);
 
     if (!credit || credit <= 0) {
-      return appendHeader(
-        new Response(
-          JSON.stringify({
-            msg: `Please click the premium button to add more credit \n 请点击充值按钮添加更多流量`,
-          }),
-          {
-            status: 400,
-          }
-        ),
-        resHeader
+      return new Response(
+        JSON.stringify({
+          msg: `Please click the premium button to add more credit \n 请点击充值按钮添加更多流量`,
+        }),
+        {
+          status: 400,
+        }
       );
     }
 
@@ -157,14 +121,10 @@ export const withPriceModel =
       .eq('id', session.user.id);
 
     if (updateErr) {
-      return appendHeader(
-        new Response(JSON.stringify({ msg: updateErr.message }), {
-          status: 400,
-        }),
-        resHeader
-      );
+      return new Response(JSON.stringify({ msg: updateErr.message }), {
+        status: 400,
+      });
     }
 
-    const finalRes = await routeFn(ctx);
-    return appendHeader(finalRes, resHeader);
+    return routeFn(ctx);
   };

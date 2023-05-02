@@ -16,9 +16,10 @@ const testingEmail: string = import.meta.env.TESTING_EMAIL;
 
 const oneMonth = 30 * 3600 * 24 * 1000;
 
-const productDetail = {
+export const productDetail = {
   [product19CNY]: { product: product19CNY, credit: 2000, duration: oneMonth },
   default: { product: 'default', credit: 100, duration: oneMonth },
+  manual: { product: 'manual', credit: 2000, duration: oneMonth },
 };
 
 const subapaseClient = createClient(supabaseUrl, supabasePrivateKey);
@@ -32,7 +33,7 @@ const stripe = new Stripe(stripeKey, {
 // This is needed in order to use the Web Crypto API in Deno.
 const cryptoProvider = Stripe.createSubtleCryptoProvider();
 
-async function updateCredit(
+export async function updateCredit(
   rawEmail: string,
   addCredit: number,
   newExpired: Date
