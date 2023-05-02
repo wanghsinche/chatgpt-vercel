@@ -4,6 +4,7 @@ import ConfigIcon from '@components/ConfigIcon';
 import swr from 'swr';
 import { useContext } from 'react';
 import type { IAccount } from '@pages/api/account';
+import { myRequest } from '@utils/request';
 
 function Account() {
   const { i18n } = useContext(GlobalContext);
@@ -15,14 +16,14 @@ function Account() {
   } = swr<IAccount>(
     'account',
     async () =>
-      fetch('/api/account', {
+      myRequest('/api/account', {
         method: 'get',
-      }).then((res) => res.json()),
+      }),
     { refreshInterval: 60000 }
   );
 
   function handleLogout() {
-    fetch('/api/logout', {
+    myRequest('/api/logout', {
       method: 'post',
     })
       .then(() => {
@@ -30,7 +31,7 @@ function Account() {
         window.location.reload();
       })
       .catch((err) => {
-        message.error(`Error logging out: ${err.message}`);
+        message.error(`Error logging out: ${err}`);
       });
   }
 

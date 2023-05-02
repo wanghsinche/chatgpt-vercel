@@ -12,6 +12,7 @@ import GlobalContext from '@contexts/global';
 import swr from 'swr';
 import { consumptionEveryTime } from '@configs';
 import type { IAccount } from '@pages/api/account';
+import { myRequest } from '@utils/request';
 
 interface PaymentModalProps {
   onOk: () => void;
@@ -31,9 +32,9 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
     error,
     isValidating,
   } = swr<IAccount>('account', async () =>
-    fetch('/api/account', {
+    myRequest('/api/account', {
       method: 'get',
-    }).then((res) => res.json())
+    })
   );
 
   const paymentBtn = (

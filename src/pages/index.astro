@@ -1,5 +1,7 @@
 ---
-import MainWithAuth from '@modules/MainWithAuth';
+import Login from '@modules/Login';
+import Main from '@modules/Main';
+import { createRouteHandlerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import type { Lang } from '@interfaces';
 import Layout from '@/layouts/Layout.astro';
 import 'katex/dist/katex.min.css';
@@ -11,16 +13,19 @@ export const prerender = true;
 const lang: Lang = import.meta.env.LANGUAGE || process.env.LANGUAGE || 'en';
 const supabaseKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseClient = createRouteHandlerSupabaseClient({
+  supabaseKey,
+  supabaseUrl,
+  headers: () => Astro.request.headers,
+  cookies: () => Astro.cookies,
+});
+const myself = await supabaseClient.auth.getUser();
 ---
 
 <Layout title="ChatGPT">
   <div id="container">
-    <MainWithAuth
-      client:only="react"
-      supabaseUrl={supabaseUrl}
-      supabaseKey={supabaseKey}
-      lang={lang}
-    />
+    {!myself.data.user && <Login client:only="react" />}
+    {myself.data.user && <Main client:only="react" lang={lang} />}
   </div>
 </Layout>
 
