@@ -12,16 +12,17 @@ const Auth: FC<IAuthProps> = ({ showLinks = true }) => {
   const [err, setErr] = useState<Error>();
   const [msg, setMsg] = useState('');
   const onFinish = async (values: Record<string, string>) => {
+    setMsg('');
+    setErr(null);
     setLoading(true);
     // console.log('Received values of form: ', values);
     try {
       if (uiType === 'signIn') {
-        const data = await myRequest('/api/signin', {
+        await myRequest('/api/signin', {
           method: 'post',
           body: JSON.stringify(values),
         });
-        console.log(data);
-        // location.reload();
+        window.location.reload();
       }
       if (uiType === 'signUp') {
         const data = await myRequest('/api/signup', {
@@ -126,6 +127,8 @@ const Auth: FC<IAuthProps> = ({ showLinks = true }) => {
             <Button
               type="link"
               onClick={() => {
+                setMsg('');
+                setErr(null);
                 setUIType('forgetPassword');
               }}
             >
@@ -134,8 +137,8 @@ const Auth: FC<IAuthProps> = ({ showLinks = true }) => {
           )}
         </div>
       )}
-      {err && <div className="text-red-600 flex">{String(err)}</div>}
-      {msg && <div className="text-black-600 flex ">{String(msg)}</div>}
+      {err && <div className="text-red-600 text-center">{String(err)}</div>}
+      {msg && <div className="text-black-600 text-center">{String(msg)}</div>}
     </Form>
   );
 };

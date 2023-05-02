@@ -26,6 +26,7 @@ function Account() {
       method: 'post',
     })
       .then(() => {
+        localStorage.clear();
         window.location.reload();
       })
       .catch((err) => {
