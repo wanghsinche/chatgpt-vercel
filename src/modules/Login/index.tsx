@@ -16,7 +16,7 @@ const LoginPage: FC<PropsWithChildren<Record<string, unknown>>> = ({
 
   if (!user)
     return (
-      <div className="mt-8 sm:mt-12">
+      <div className="mt-8 sm:mt-12 mx-auto max-w-lg">
         <div>
           <span className="text-3xl text-gradient font-[800]">ChatGPT</span>
         </div>

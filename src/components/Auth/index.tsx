@@ -1,3 +1,4 @@
+import { myRequest } from '@utils/request';
 import { Button, Form, Input } from 'antd';
 import { FC, useState } from 'react';
 
@@ -7,9 +8,39 @@ export interface IAuthProps {
 type TUIType = 'signUp' | 'signIn' | 'forgetPassword';
 const Auth: FC<IAuthProps> = ({ showLinks = true }) => {
   const [uiType, setUIType] = useState<TUIType>('signIn');
-
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState<Error>();
+  const [msg, setMsg] = useState('');
+  const onFinish = async (values: Record<string, string>) => {
+    setLoading(true);
+    // console.log('Received values of form: ', values);
+    try {
+      if (uiType === 'signIn') {
+        const data = await myRequest('/api/signin', {
+          method: 'post',
+          body: JSON.stringify(values),
+        });
+        console.log(data);
+        // location.reload();
+      }
+      if (uiType === 'signUp') {
+        const data = await myRequest('/api/signup', {
+          method: 'post',
+          body: JSON.stringify(values),
+        });
+        setMsg(data.msg);
+      }
+      if (uiType === 'forgetPassword') {
+        const data = await myRequest('/api/forgetpassword', {
+          method: 'post',
+          body: JSON.stringify(values),
+        });
+        setMsg(data.msg);
+      }
+    } catch (e) {
+      setErr(e);
+    }
+    setLoading(false);
   };
 
   return (
@@ -64,6 +95,7 @@ const Auth: FC<IAuthProps> = ({ showLinks = true }) => {
         type="primary"
         htmlType="submit"
         className="block w-full"
+        loading={loading}
         style={{ background: 'var(--theme-purple-antd)' }}
       >
         {uiType === 'signUp' && 'Sign up'}
@@ -76,6 +108,8 @@ const Auth: FC<IAuthProps> = ({ showLinks = true }) => {
           <Button
             type="link"
             onClick={() => {
+              setMsg('');
+              setErr(null);
               if (uiType === 'signIn') {
                 setUIType('signUp');
                 return;
@@ -100,7 +134,8 @@ const Auth: FC<IAuthProps> = ({ showLinks = true }) => {
           )}
         </div>
       )}
-      {/* <div className='text-red-600 flex justify-center'>error</div> */}
+      {err && <div className="text-red-600 flex">{String(err)}</div>}
+      {msg && <div className="text-black-600 flex ">{String(msg)}</div>}
     </Form>
   );
 };
