@@ -1,16 +1,27 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { Button, Card, Tag } from 'antd';
 import GlobalContext from '@contexts/global';
 
-const WepayButton: FC<{ email: string; enableDesc?: boolean }> = ({
-  email,
-  enableDesc = false,
-}) => {
+const WepayButton: FC<{
+  email: string;
+  enableDesc?: boolean;
+  price?: number;
+  tier?: number;
+}> = ({ email, enableDesc = false, price = 19, tier = 2 }) => {
+  const [expiry, setExpiry] = useState(Date.now() + 1000 * 60);
   const { i18n } = useContext(GlobalContext);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setExpiry(Date.now() + 1000 * 60);
+    }, 30000);
+    return () => clearInterval(t);
+  }, []);
+
   const btn = (
     <Button className="w-full" type="primary">
       <a
-        href={`/wepay?Email=${email}&Price=19&Expiry=${Date.now() + 1000 * 60}`}
+        href={`/wepay?Email=${email}&Price=${price}&Expiry=${expiry}&Tier=${tier}`}
         target="blank"
       >
         {i18n.pay_with_wexin}
@@ -20,7 +31,14 @@ const WepayButton: FC<{ email: string; enableDesc?: boolean }> = ({
 
   if (enableDesc)
     return (
-      <Card bordered title={<Tag color="gold">19元2M月度流量包</Tag>}>
+      <Card
+        bordered
+        title={
+          <Tag color="gold">
+            {price}元{tier}M月度流量包
+          </Tag>
+        }
+      >
         {btn}
       </Card>
     );
