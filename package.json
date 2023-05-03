@@ -25,6 +25,7 @@
     "stripe-forward": "stripe listen --forward-to localhost:3000/api/stripe"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.9.1",
     "@astrojs/node": "^5.1.1",
     "@astrojs/react": "^2.1.0",
     "@astrojs/solid-js": "^2.1.0",

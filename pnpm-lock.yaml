@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@ant-design/cssinjs':
+    specifier: ^1.9.1
+    version: 1.9.1(react-dom@18.2.0)(react@18.2.0)
   '@astrojs/node':
     specifier: ^5.1.1
     version: 5.1.1(astro@2.1.3)
@@ -170,8 +173,8 @@ packages:
       '@ctrl/tinycolor': 3.6.0
     dev: false
 
-  /@ant-design/cssinjs@1.6.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-35+1e5h1HzPt7d7NjXTG5yg/OQY85YcOIpb3peB3/eKri7+0mW9c+WZB3In7yMscBzvxQREOR5pxNDbqMcI42w==}
+  /@ant-design/cssinjs@1.9.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-CZt1vCMs/sY7RoacYuIkZwQmb8Bhp99ReNNE9Y8lnUzik8fmCdKAQA7ecvVOFwmNFdcBHga7ye/XIRrsbkiqWw==}
     peerDependencies:
       react: '>=16.0.0'
       react-dom: '>=16.0.0'
@@ -1554,7 +1557,7 @@ packages:
       react-dom: '>=16.9.0'
     dependencies:
       '@ant-design/colors': 7.0.0
-      '@ant-design/cssinjs': 1.6.1(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/cssinjs': 1.9.1(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/icons': 5.0.1(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/react-slick': 1.0.0(react@18.2.0)
       '@babel/runtime': 7.21.0
