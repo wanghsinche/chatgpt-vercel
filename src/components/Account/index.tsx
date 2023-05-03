@@ -19,7 +19,12 @@ function Account() {
       myRequest('/api/account', {
         method: 'get',
       }),
-    { refreshInterval: 60000 }
+    {
+      refreshInterval: 60000,
+      onError: () => {
+        window.location.href = `/?date=${Date.now()}`;
+      },
+    }
   );
 
   function handleLogout() {
