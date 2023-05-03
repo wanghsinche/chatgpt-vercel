@@ -13,6 +13,7 @@ import swr from 'swr';
 import { consumptionEveryTime } from '@configs';
 import type { IAccount } from '@pages/api/account';
 import { myRequest } from '@utils/request';
+import WepayButton from './WechatPayButton';
 
 interface PaymentModalProps {
   onOk: () => void;
@@ -38,11 +39,16 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
   );
 
   const paymentBtn = (
-    <stripe-buy-button
-      customer-email={account?.email}
-      buy-button-id={btnId}
-      publishable-key={pubKey}
-    ></stripe-buy-button>
+    <Space direction="vertical">
+      {btnId && (
+        <stripe-buy-button
+          customer-email={account?.email}
+          buy-button-id={btnId}
+          publishable-key={pubKey}
+        ></stripe-buy-button>
+      )}
+      <WepayButton email={account?.email} enableDesc={!btnId} />
+    </Space>
   );
 
   const toBeExpired = Math.min(

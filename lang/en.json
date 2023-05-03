@@ -38,5 +38,6 @@
   "premium": "Premium",
   "account": "Account",
   "expired_date": "Next expired date",
-  "expire_credit": "Next expired credits"
+  "expire_credit": "Next expired credits",
+  "pay_with_wexin":"Pay with Weixin"
 }

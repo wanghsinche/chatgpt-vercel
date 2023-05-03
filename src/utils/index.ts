@@ -71,3 +71,19 @@ export const parseConversation = (text: string): Omit<Conversation, 'id'> => {
     createdAt: Date.now(),
   };
 };
+
+export const wxGoToHell = () => {
+  if (navigator.userAgent.indexOf('MicroMessenger') >= 0) {
+    const div = document.createElement('div');
+    div.innerHTML = '<p>请点击右上角，选择在浏览器中打开</p>';
+    div.style.position = 'fixed';
+    div.style.top = '0';
+    div.style.left = '0';
+    div.style.width = '100%';
+    div.style.background = '#333';
+    div.style.color = '#fff';
+    div.style.padding = '10px';
+    div.style.zIndex = '9999';
+    document.body.appendChild(div);
+  }
+};

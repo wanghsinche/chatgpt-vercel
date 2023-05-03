@@ -49,7 +49,6 @@ const Auth: FC<IAuthProps> = ({ showLinks = true }) => {
       name={uiType ? 'signup' : 'login'}
       initialValues={{ remember: true }}
       onFinish={onFinish}
-      className="my-8"
     >
       <Form.Item
         name="email"
