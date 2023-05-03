@@ -34,10 +34,12 @@
   "success_import": "导入成功",
   "logout":"退出账号",
   "credit": "流量",
+  "current_credit": "当前流量",
   "payment": "付款",
   "premium": "充值",
   "account": "账号",
   "expired_date": "下个结算日期",
   "expire_credit": "下次到期流量",
-  "pay_with_wexin":"微信扫码购买"
+  "pay_with_wexin":"微信扫码购买",
+  "support_group":"用户QQ群"
 }

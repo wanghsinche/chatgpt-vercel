@@ -31,7 +31,7 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
   const {
     data: account,
     error,
-    isValidating,
+    isLoading,
   } = swr<IAccount>('account', async () =>
     myRequest('/api/account', {
       method: 'get',
@@ -69,9 +69,9 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
           <Descriptions.Item label={i18n.account}>
             {account?.email || account?.id}
           </Descriptions.Item>
-          <Descriptions.Item label={i18n.credit}>
+          <Descriptions.Item label={i18n.current_credit}>
             <Tag color="gold" title={i18n.credit}>
-              {Number(error || account?.credit) / 1000}M {i18n.credit}
+              {Number(error || account?.credit) / 1000}M
             </Tag>
           </Descriptions.Item>
           <Descriptions.Item label={i18n.expired_date}>
@@ -79,13 +79,13 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
           </Descriptions.Item>
           <Descriptions.Item label={i18n.expire_credit}>
             <Tag color="red" title={i18n.credit}>
-              {toBeExpired / 1000}M {i18n.credit}
+              {toBeExpired / 1000}M
             </Tag>
           </Descriptions.Item>
         </Descriptions>
       </div>
       <div className="mt-[12px] flex items-center justify-center">
-        {!account || isValidating ? <Skeleton /> : paymentBtn}
+        {!account || isLoading ? <Skeleton /> : paymentBtn}
       </div>
       <div className="mt-[12px] flex items-center flex-row-reverse">
         <Space>

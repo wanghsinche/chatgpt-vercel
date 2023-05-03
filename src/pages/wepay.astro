@@ -12,7 +12,13 @@ const base64 = `data:image/jpg;base64,${Buffer.from(buff).toString('base64')}`;
 
 <Layout title="ChatGPT">
   <div id="container">
-    <div style="text-align: center; font-size: large;">
+    <div id="textContent"></div>
+    <img src={base64} width="400" />
+  </div>
+</Layout>
+<script>
+  document.getElementById('textContent').innerHTML = `
+  <div style="text-align: center; font-size: large;">
       请支付：￥ <span id="price"></span>
     </div>
     <div style="text-align: center; font-size: large;">
@@ -22,10 +28,7 @@ const base64 = `data:image/jpg;base64,${Buffer.from(buff).toString('base64')}`;
       务必在<span style="background-color: yellow;">添加备注</span
       >写上你的邮箱：<div id="email" style="background-color: yellow;"></div>
     </div>
-    <img src={base64} width="400" />
-  </div>
-</Layout>
-<script is:inline>
+  `;
   const expiry = Number(new URLSearchParams(location.search).get('Expiry'));
   const price = new URLSearchParams(location.search).get('Price');
   const email = new URLSearchParams(location.search).get('Email');

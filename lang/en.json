@@ -34,10 +34,12 @@
   "success_import": "Import successfully",
   "logout":"Log out",
   "credit":"Credit",
+  "current_credit": "Current credit",
   "payment": "Payment",
   "premium": "Premium",
   "account": "Account",
   "expired_date": "Next expired date",
   "expire_credit": "Next expired credits",
-  "pay_with_wexin":"Pay with Weixin"
+  "pay_with_wexin":"Pay with Weixin",
+  "support_group":"support group"
 }
