@@ -1,0 +1,55 @@
+---
+import Layout from '@/layouts/Layout.astro';
+export const prerender = true;
+const imageUrl: string = import.meta.env.PUBLIC_WEPAY;
+// Set the image URL
+
+// Fetch the image using fetch API
+const buff = await fetch(imageUrl).then((response) => response.arrayBuffer()); // Get the image as a Blob
+
+const base64 = `data:image/jpg;base64,${Buffer.from(buff).toString('base64')}`;
+---
+
+<Layout title="ChatGPT">
+  <div id="container">
+    <div id="textContent"></div>
+    <img src={base64} width="400" />
+  </div>
+</Layout>
+<script>
+  document.getElementById('textContent').innerHTML = `
+  <div style="text-align: center; font-size: large;">
+      请支付：￥ <span id="price"></span>
+    </div>
+    <div style="text-align: center; font-size: large;">
+      你的流量会在支付成功后0.5个工作日内更新
+    </div>
+    <div style="text-align: center; font-size: large;">
+      务必在<span style="background-color: yellow;">添加备注</span
+      >写上你的邮箱：<div id="email" style="background-color: yellow;"></div>
+    </div>
+  `;
+  const expiry = Number(new URLSearchParams(location.search).get('Expiry'));
+  const price = new URLSearchParams(location.search).get('Price');
+  const email = new URLSearchParams(location.search).get('Email');
+  document.getElementById('email').innerText = email;
+  document.getElementById('price').innerText = price;
+  if (expiry && Date.now() < expiry) {
+    fetch('/api/wepaynotify', {
+      method: 'post',
+      body: JSON.stringify({ email }),
+    }).then(() => {
+      console.log('notified');
+    });
+  }
+  function checking() {
+    if (!expiry || Date.now() > expiry) {
+      document.getElementById('container').innerHTML = '页面已经过期';
+      return;
+    }
+    setTimeout(() => {
+      checking();
+    }, 30000);
+  }
+  checking();
+</script>

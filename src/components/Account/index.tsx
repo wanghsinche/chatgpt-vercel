@@ -21,9 +21,6 @@ function Account() {
       }),
     {
       refreshInterval: 60000,
-      onError: () => {
-        window.location.href = `/?date=${Date.now()}`;
-      },
     }
   );
 

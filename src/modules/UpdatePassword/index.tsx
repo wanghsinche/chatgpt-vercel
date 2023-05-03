@@ -30,7 +30,7 @@ const ChangePasswordForm = () => {
   };
 
   const dom = (
-    <Form name="change_password" onFinish={onFinish} className="my-8">
+    <Form name="change_password" onFinish={onFinish}>
       <Form.Item
         name="password"
         rules={[
@@ -83,7 +83,7 @@ const ChangePasswordForm = () => {
 
   return (
     <div className="mt-8 sm:mt-12 mx-auto max-w-lg">
-      <div>
+      <div className="my-8">
         <span className="text-3xl text-gradient font-[800]">ChatGPT</span>
       </div>
       {dom}

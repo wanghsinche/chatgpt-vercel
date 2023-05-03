@@ -1,4 +1,4 @@
-import { SupportedModel, defaultModel } from '@configs/index';
+import { SupportedModel, defaultModel, noLoginCode } from '@configs/index';
 import { createRouteHandlerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import type { APIRoute, APIContext } from 'astro';
 
@@ -62,7 +62,7 @@ export const withPriceModel =
 
     if (!session?.user) {
       return new Response(JSON.stringify({ msg: 'No Login' }), {
-        status: 400,
+        status: noLoginCode,
       });
     }
 

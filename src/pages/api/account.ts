@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { createRouteHandlerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { noLoginCode } from '@configs';
 
 const supabaseKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -21,7 +22,9 @@ export const get: APIRoute = async ({ request, cookies }) => {
 
   const myselfRes = await supabaseClient.auth.getUser();
   if (!myselfRes.data?.user) {
-    return new Response(JSON.stringify({ msg: 'No Login' }), { status: 400 });
+    return new Response(JSON.stringify({ msg: 'No Login' }), {
+      status: noLoginCode,
+    });
   }
   const subscriptionRes = await supabaseClient
     .from('subscription')

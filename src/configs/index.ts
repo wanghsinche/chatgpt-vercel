@@ -62,3 +62,4 @@ export const defaultConversation: Omit<Conversation, 'title'> = {
 
 export const consumptionEveryTime = 2000;
 export const cookieName = 'supabase-auth-token';
+export const noLoginCode = 401;
