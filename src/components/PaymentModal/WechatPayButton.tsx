@@ -49,7 +49,7 @@ const WepayButton: FC<{
           ¥{Number(price).toFixed(2)}
         </div>
         <div className="text-gray-800 text-lg  text-center">
-          1M流量约等于800次对话
+          1M流量约等于1000次对话
         </div>
         <div className="flex justify-center items-center py-6">{btn}</div>
       </Card>
