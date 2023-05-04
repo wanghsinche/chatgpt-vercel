@@ -28,6 +28,12 @@ const WepayButton: FC<{
     </a>
   );
 
+  const btn = (
+    <Button className="!bg-green-500 !hover:bg-green-600 !text-white rounded-md px-8 py-2 w-full !h-auto !border-transparent	">
+      {link}
+    </Button>
+  );
+
   if (enableDesc)
     return (
       <Card
@@ -44,19 +50,11 @@ const WepayButton: FC<{
         <div className="text-gray-800 text-2xl  text-center">
           ¥{Number(price).toFixed(2)}
         </div>
-        <div className="flex justify-center items-center py-6">
-          <Button className=" bg-green-500 hover:bg-green-600 text-white rounded-md px-8 py-2 w-full h-auto border-transparent	">
-            {link}
-          </Button>
-        </div>
+        <div className="flex justify-center items-center py-6">{btn}</div>
       </Card>
     );
 
-  return (
-    <Button className=" bg-green-500 hover:bg-green-600 text-white rounded-md px-8 py-2 w-full h-auto border-transparent	">
-      {link}
-    </Button>
-  );
+  return btn;
 };
 
 export default WepayButton;
