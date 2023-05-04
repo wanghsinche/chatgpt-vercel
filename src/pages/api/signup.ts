@@ -26,7 +26,9 @@ export const post: APIRoute = async ({ request, cookies }) => {
   }
 
   return new Response(
-    JSON.stringify({ msg: `Please check your email ${email} to verify` }),
+    JSON.stringify({
+      msg: `Please check your email ${email} to verify. 请查看你的邮箱 ${email} 的确认邮件进行确认`,
+    }),
     { status: 200 }
   );
 };
