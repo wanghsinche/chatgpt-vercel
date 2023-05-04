@@ -18,32 +18,45 @@ const WepayButton: FC<{
     return () => clearInterval(t);
   }, []);
 
-  const btn = (
-    <Button className="w-full" type="primary">
-      <a
-        href={`/wepay?Email=${email}&Price=${price}&Expiry=${expiry}&Tier=${tier}`}
-        target="blank"
-      >
-        {i18n.pay_with_wexin}
-      </a>
-    </Button>
+  const link = (
+    <a
+      href={`/wepay?Email=${email}&Price=${price}&Expiry=${expiry}&Tier=${tier}`}
+      target="blank"
+      className="inline-flex items-center		"
+    >
+      <i className="ri-wechat-pay-fill"></i> {i18n.pay_with_wexin}
+    </a>
   );
 
   if (enableDesc)
     return (
       <Card
+        className="rounded-md shadow-md"
         bordered
         title={
-          <Tag color="gold">
-            {price}元{tier}M月度流量包
-          </Tag>
+          <div className="flex justify-center">
+            <Tag color="gold">
+              Chatgpt {price}元{tier}M月度流量包
+            </Tag>
+          </div>
         }
       >
-        {btn}
+        <div className="text-gray-800 text-2xl  text-center">
+          ¥{Number(price).toFixed(2)}
+        </div>
+        <div className="flex justify-center items-center py-6">
+          <Button className=" bg-green-500 hover:bg-green-600 text-white rounded-md px-8 py-2 w-full h-auto border-transparent	">
+            {link}
+          </Button>
+        </div>
       </Card>
     );
 
-  return btn;
+  return (
+    <Button className=" bg-green-500 hover:bg-green-600 text-white rounded-md px-8 py-2 w-full h-auto border-transparent	">
+      {link}
+    </Button>
+  );
 };
 
 export default WepayButton;
