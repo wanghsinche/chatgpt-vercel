@@ -8,8 +8,10 @@ const testingEmail: string = import.meta.env.TESTING_EMAIL;
 
 const manualKey = import.meta.env.MANUAL_KEY;
 
-export const post: APIRoute = async ({ request, cookies }) => {
-  const { email, token } = await request.json();
+export const get: APIRoute = async ({ request, cookies }) => {
+  const query = new URL(request.url).searchParams;
+  const token = query.get('Token');
+  const email = query.get('Email');
 
   const supabaseClient = createRouteHandlerSupabaseClient({
     supabaseUrl,
