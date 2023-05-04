@@ -119,7 +119,7 @@ const Auth: FC<IAuthProps> = ({ showLinks = true }) => {
           >
             {uiType !== 'signIn'
               ? 'Back to Sign in'
-              : "Haven't an account? Sign up"}
+              : '还没有账号? 点此 Sign up'}
           </Button>
 
           {uiType === 'signIn' && (
