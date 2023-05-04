@@ -24,7 +24,7 @@ async function updateCredit() {
     .map((el) => {
       const newEl = { ...el };
       newEl.expired_at = nextExpiry;
-      newEl.credit = Math.max(newEl.credit - consumptionEveryTime, 0);
+      newEl.credit = Math.max(newEl.credit - consumptionEveryTime, 50); // comsume the credit, and ensure has 50 at least
       return newEl;
     });
 
