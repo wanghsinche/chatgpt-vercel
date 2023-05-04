@@ -75,7 +75,7 @@ export const parseConversation = (text: string): Omit<Conversation, 'id'> => {
 export const wxGoToHell = () => {
   if (navigator.userAgent.indexOf('MicroMessenger') >= 0) {
     const div = document.createElement('div');
-    div.innerHTML = '<p>请点击右上角，选择在浏览器中打开</p>';
+    div.innerHTML = '<p>请点击右上角菜单图标，选择在手机浏览器中打开，推荐在电脑端使用</p>';
     div.style.position = 'fixed';
     div.style.top = '0';
     div.style.left = '0';
