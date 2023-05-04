@@ -41,14 +41,15 @@ const WepayButton: FC<{
         bordered
         title={
           <div className="flex justify-center">
-            <Tag color="gold">
-              Chatgpt {price}元{tier}M月度流量包
-            </Tag>
+            <Tag color="gold">Chatgpt {tier}M月度流量包</Tag>
           </div>
         }
       >
         <div className="text-gray-800 text-2xl  text-center">
           ¥{Number(price).toFixed(2)}
+        </div>
+        <div className="text-gray-800 text-lg  text-center">
+          1M流量约等于800次对话
         </div>
         <div className="flex justify-center items-center py-6">{btn}</div>
       </Card>
