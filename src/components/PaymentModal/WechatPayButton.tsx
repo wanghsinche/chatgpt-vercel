@@ -1,6 +1,7 @@
 import { FC, useContext, useEffect, useState } from 'react';
 import { Button, Card, Tag } from 'antd';
 import GlobalContext from '@contexts/global';
+import { wechatExpirySec } from '@configs';
 
 const WepayButton: FC<{
   email: string;
@@ -8,12 +9,12 @@ const WepayButton: FC<{
   price?: number;
   tier?: number;
 }> = ({ email, enableDesc = false, price = 19, tier = 2 }) => {
-  const [expiry, setExpiry] = useState(Date.now() + 1000 * 60);
+  const [expiry, setExpiry] = useState(Date.now() + 1000 * wechatExpirySec);
   const { i18n } = useContext(GlobalContext);
 
   useEffect(() => {
     const t = setInterval(() => {
-      setExpiry(Date.now() + 1000 * 60);
+      setExpiry(Date.now() + 1000 * wechatExpirySec);
     }, 30000);
     return () => clearInterval(t);
   }, []);
