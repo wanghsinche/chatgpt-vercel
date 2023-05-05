@@ -41,5 +41,6 @@
   "expired_date": "Next expired date",
   "expire_credit": "Next expired credits",
   "pay_with_wexin":"Pay with Weixin",
-  "support_group":"support group"
+  "support_group":"support group",
+  "customer_service":"Email to me ai@findata-be.uk"
 }

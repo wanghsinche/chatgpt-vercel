@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { createRouteHandlerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { botMsg } from '@utils/bot';
 import { productDetail, updateCredit } from './stripe';
 
 const supabaseKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -30,6 +31,8 @@ export const get: APIRoute = async ({ request, cookies }) => {
     productDetail.manual.credit,
     new Date(Date.now() + productDetail.manual.duration)
   );
+
+  botMsg(`${email} added ${productDetail.manual.credit}`);
 
   return new Response(JSON.stringify({ msg: 'ok' }), { status: 200 });
 };

@@ -131,6 +131,7 @@ const Sidebar: FC<{
             </div>
           ))}
       </div>
+      <div className="p-4 text-gray-500 text-sm">{i18n.customer_service}</div>
       <ImportConversationModal
         nextId={getMaxIndex(data).toString()}
         open={visible}
