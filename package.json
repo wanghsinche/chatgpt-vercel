@@ -38,6 +38,7 @@
     "dayjs": "^1.11.7",
     "event-target-polyfill": "^0.0.3",
     "eventsource-parser": "^1.0.0",
+    "gpt3-tokenizer": "^1.1.5",
     "highlight.js": "^11.7.0",
     "katex": "^0.16.4",
     "lodash-es": "^4.17.21",
