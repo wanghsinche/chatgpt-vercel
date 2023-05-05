@@ -8,7 +8,7 @@ const testingEmail: string = import.meta.env.TESTING_EMAIL;
 function core(email: string, remark: string, extra: string) {
   const approval = `${homepage}api/manual?Token=${manualKey}&Email=${email}&Product=${extra}`;
 
-  const msg = `User ${email} is going to pay, remark is ${remark}, extra is ${extra} ,at ${new Date().toLocaleString()}, click ${approval}  to confirm it with your admin account ${testingEmail}`;
+  const msg = `User ${email} is going to pay, remark is ${remark}, Product is ${extra}, at ${new Date().toLocaleString()}, click ${approval}  to confirm it with your admin account ${testingEmail}`;
   botMsg(msg);
 }
 export const post: APIRoute = async ({ request }) => {

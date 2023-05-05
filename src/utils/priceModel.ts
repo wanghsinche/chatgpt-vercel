@@ -12,6 +12,38 @@ export const priceList: Record<SupportedModel, number> = {
   'gpt-3.5-turbo-0301': 0.002,
 };
 
+const product19CNY: string = import.meta.env.STRIPE_PRODUCT_19CNY;
+const oneMonth = 30 * 3600 * 24 * 1000;
+
+export interface IProductInfo {
+  product: string;
+  credit: number;
+  duration: number;
+  price: number;
+}
+
+export const productDetail: Record<string, IProductInfo> = {
+  [product19CNY]: {
+    product: product19CNY,
+    credit: 2000,
+    duration: oneMonth,
+    price: 19,
+  },
+  default: { product: 'default', credit: 100, duration: oneMonth, price: 1 },
+  'manual-19': {
+    product: 'manual-19',
+    credit: 2000,
+    duration: oneMonth,
+    price: 19,
+  },
+  'manual-5': {
+    product: 'manual-5',
+    credit: 500,
+    duration: oneMonth,
+    price: 5,
+  },
+} as const;
+
 export function oldCountTokens(sentence: string) {
   const chineseTokenLength = 2; // 1 Chinese character ~= 2 tokens
   const englishTokenLength = 4; // 1 token ~= 4 chars in English

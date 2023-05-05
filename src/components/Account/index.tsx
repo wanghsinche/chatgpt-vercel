@@ -43,7 +43,7 @@ function Account() {
       <Space align="center">
         <Spin spinning={isValidating}>
           <Tag color="gold" title={i18n.credit}>
-            {i18n.credit}: {Number(error || account?.credit) / 1000} M
+            {i18n.credit}: {Number(error || account?.credit)}
           </Tag>
         </Spin>
         <Tooltip title={i18n.logout}>

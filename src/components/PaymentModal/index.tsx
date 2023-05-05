@@ -13,6 +13,7 @@ import swr from 'swr';
 import { consumptionEveryTime } from '@configs';
 import type { IAccount } from '@pages/api/account';
 import { myRequest } from '@utils/request';
+import { productDetail } from '@utils/priceModel';
 import WepayButton from './WechatPayButton';
 
 interface PaymentModalProps {
@@ -39,7 +40,7 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
   );
 
   const paymentBtn = (
-    <Space direction="vertical">
+    <Space direction="horizontal">
       {btnId && (
         <stripe-buy-button
           customer-email={account?.email}
@@ -47,7 +48,16 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
           publishable-key={pubKey}
         ></stripe-buy-button>
       )}
-      <WepayButton email={account?.email} enableDesc={!btnId} />
+      <WepayButton
+        email={account?.email}
+        enableDesc={!btnId}
+        product={productDetail['manual-19']}
+      />
+      <WepayButton
+        email={account?.email}
+        enableDesc={!btnId}
+        product={productDetail['manual-5']}
+      />
     </Space>
   );
 
@@ -71,7 +81,7 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
           </Descriptions.Item>
           <Descriptions.Item label={i18n.current_credit}>
             <Tag color="gold" title={i18n.credit}>
-              {Number(error || account?.credit) / 1000}M
+              {Number(error || account?.credit)}
             </Tag>
           </Descriptions.Item>
           <Descriptions.Item label={i18n.expired_date}>
@@ -79,7 +89,7 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
           </Descriptions.Item>
           <Descriptions.Item label={i18n.expire_credit}>
             <Tag color="red" title={i18n.credit}>
-              {toBeExpired / 1000}M
+              {toBeExpired}
             </Tag>
           </Descriptions.Item>
         </Descriptions>

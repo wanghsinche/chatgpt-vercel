@@ -3,6 +3,7 @@ import type { APIRoute } from 'astro';
 import 'event-target-polyfill';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
+import { productDetail } from '@utils/priceModel';
 
 const supabasePrivateKey = import.meta.env.NEXT_PRIVATE_SUPABASE_SERVICE_KEY;
 const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -10,17 +11,7 @@ const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
 const stripeKey: string = import.meta.env.STRIPE_APIKEY;
 const webhookSecret: string = import.meta.env.STRIPE_WEBHOOK_SECRET;
 
-const product19CNY: string = import.meta.env.STRIPE_PRODUCT_19CNY;
-
 const testingEmail: string = import.meta.env.TESTING_EMAIL;
-
-const oneMonth = 30 * 3600 * 24 * 1000;
-
-export const productDetail = {
-  [product19CNY]: { product: product19CNY, credit: 2000, duration: oneMonth },
-  default: { product: 'default', credit: 100, duration: oneMonth },
-  manual: { product: 'manual', credit: 2000, duration: oneMonth },
-};
 
 const subapaseClient = createClient(supabaseUrl, supabasePrivateKey);
 
