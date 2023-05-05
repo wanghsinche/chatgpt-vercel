@@ -1,6 +1,7 @@
 import { SupportedModel, defaultModel, noLoginCode } from '@configs/index';
 import { createRouteHandlerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import type { APIRoute, APIContext } from 'astro';
+import GPT3Tokenizer from 'gpt3-tokenizer';
 
 export const priceList: Record<SupportedModel, number> = {
   // 'gpt-4': 0.06,
@@ -11,23 +12,32 @@ export const priceList: Record<SupportedModel, number> = {
   'gpt-3.5-turbo-0301': 0.002,
 };
 
-export function countTokens(sentence: string) {
+export function oldCountTokens(sentence: string) {
   const chineseTokenLength = 2; // 1 Chinese character ~= 2 tokens
   const englishTokenLength = 4; // 1 token ~= 4 chars in English
   const tokenRatio = 0.75; // 1 token ~= 3/4 words
 
   const chineseCharRegex = /[\u4e00-\u9fa5]/g; // regular expression to match Chinese characters
   const chineseCharCount = (sentence.match(chineseCharRegex) || []).length;
-  const otherTokenCount = sentence.split(' ').length - chineseCharCount;
+  const otherTokenCount = Math.max(
+    sentence.split(' ').length - chineseCharCount,
+    0
+  );
 
   const tokenCount =
     chineseCharCount * chineseTokenLength +
     Math.ceil(
       otherTokenCount * tokenRatio +
-        (sentence.length - chineseCharCount * 2) / englishTokenLength
+        Math.max(sentence.length - chineseCharCount * 2, 0) / englishTokenLength
     );
 
   return tokenCount;
+}
+
+export function countTokens(sentence: string) {
+  const tokenizer = new GPT3Tokenizer({ type: 'gpt3' }); // or 'codex'
+  const encoded: { bpe: number[]; text: string[] } = tokenizer.encode(sentence);
+  return encoded.text.length;
 }
 
 export function calculateCost(
