@@ -82,6 +82,8 @@ const Sidebar: FC<{
     <div className="flex flex-col h-full bg-white">
       <div className="p-4 mt-2 flex items-baseline justify-between">
         <span className="text-3xl text-gradient font-[800]">ChatGPT</span>
+        <span className="ml-2 text-xl">{i18n.customer_service}</span>
+
         <Tooltip
           title="Client version: GPTGenius/chatgpt-vercel"
           // href="https://github.com/GPTGenius/chatgpt-vercel"

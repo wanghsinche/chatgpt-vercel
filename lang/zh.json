@@ -41,5 +41,6 @@
   "expired_date": "下个结算日期",
   "expire_credit": "下次到期流量",
   "pay_with_wexin":"微信扫码付款",
-  "support_group":"用户QQ群"
+  "support_group":"用户QQ群",
+  "customer_service":"客服邮箱 ai@findata-be.uk"
 }
