@@ -12,7 +12,7 @@ const WepayButton: FC<{
   product?: IProductInfo;
 }> = ({ email, enableDesc = false, product = productDetail.default }) => {
   const [expiry, setExpiry] = useState(Date.now() + 1000 * wechatExpirySec);
-  const { i18n } = useContext(GlobalContext);
+  const { i18n, isMobile } = useContext(GlobalContext);
 
   useEffect(() => {
     const t = setInterval(() => {
@@ -53,9 +53,11 @@ const WepayButton: FC<{
         <div className="text-gray-800 text-2xl  text-center">
           ¥{Number(product.price).toFixed(2)}
         </div>
-        <div className="text-gray-800 text-lg  text-center">
-          1M 约等于1000次对话
-        </div>
+        {!isMobile && (
+          <div className="text-gray-800 text-lg  text-center">
+            1M 约等于1000次对话
+          </div>
+        )}
         <div className="flex justify-center items-center py-6">{btn}</div>
       </Card>
     );
