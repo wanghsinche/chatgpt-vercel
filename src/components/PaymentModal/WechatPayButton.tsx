@@ -11,13 +11,13 @@ const WepayButton: FC<{
   enableDesc?: boolean;
   product?: IProductInfo;
 }> = ({ email, enableDesc = false, product = productDetail.default }) => {
-  const [expiry, setExpiry] = useState(Date.now() + 1000 * 300);
+  const [expiry, setExpiry] = useState(Date.now() + 1000 * wechatExpirySec);
   const { i18n } = useContext(GlobalContext);
 
   useEffect(() => {
     const t = setInterval(() => {
       setExpiry(Date.now() + 1000 * wechatExpirySec);
-    }, 30000);
+    }, 10000);
     return () => clearInterval(t);
   }, []);
 

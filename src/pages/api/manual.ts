@@ -65,10 +65,13 @@ export const get: APIRoute = async ({ request, cookies }) => {
     const confirmInfo = getConfirmToken();
     const confirmLink = `${request.url}&ConfirmToken=${confirmInfo.token}&Ts=${confirmInfo.timestamp}`;
     return new Response(
-      JSON.stringify({
-        msg: `double confirm with the link \n  ${confirmLink} \n to add ${productInfo.credit} to user ${email}`,
-      }),
-      { status: 200 }
+      `double confirm with the link \n  ${confirmLink} \n to add ${productInfo.credit} to user ${email}`,
+      {
+        status: 200,
+        headers: {
+          'content-type': 'text/html',
+        },
+      }
     );
   }
 
