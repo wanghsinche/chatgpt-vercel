@@ -40,7 +40,7 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
   );
 
   const paymentBtn = (
-    <Space direction="horizontal">
+    <Space direction={isMobile ? 'vertical' : 'horizontal'}>
       {btnId && (
         <stripe-buy-button
           customer-email={account?.email}
