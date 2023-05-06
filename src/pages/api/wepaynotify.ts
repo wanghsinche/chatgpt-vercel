@@ -19,9 +19,10 @@ export const post: APIRoute = async ({ request }) => {
 
 export const get: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
-  const email = url.searchParams.get('email') || url.searchParams.get('user');
+  const email = url.searchParams.get('email');
+  const user = url.searchParams.get('user');
   const remark = url.searchParams.get('remark');
 
-  core(email, remark);
+  core(email || user, remark);
   return new Response(JSON.stringify({ msg: 'ok' }), { status: 200 });
 };
