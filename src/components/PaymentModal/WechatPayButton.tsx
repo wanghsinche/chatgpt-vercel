@@ -23,7 +23,7 @@ const WepayButton: FC<{
 
   const link = (
     <a
-      href={`${payHost}/wepay?User=${email}&Price=${price}&Expiry=${expiry}&Tier=${tier}`}
+      href={`${payHost}/wepay?user=${email}&price=${price}&expiry=${expiry}&tier=${tier}`}
       target="blank"
       className="inline-flex items-center		"
     >
