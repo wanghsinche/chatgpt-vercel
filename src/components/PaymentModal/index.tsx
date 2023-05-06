@@ -81,7 +81,7 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
           </Descriptions.Item>
           <Descriptions.Item label={i18n.current_credit}>
             <Tag color="gold" title={i18n.credit}>
-              {Number(error || account?.credit)}
+              {Number(error || account?.credit) / 1000} M
             </Tag>
           </Descriptions.Item>
           <Descriptions.Item label={i18n.expired_date}>
@@ -89,7 +89,7 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
           </Descriptions.Item>
           <Descriptions.Item label={i18n.expire_credit}>
             <Tag color="red" title={i18n.credit}>
-              {toBeExpired}
+              {toBeExpired / 1000} M
             </Tag>
           </Descriptions.Item>
         </Descriptions>
