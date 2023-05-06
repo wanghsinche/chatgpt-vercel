@@ -3,6 +3,8 @@ import { Button, Card, Tag } from 'antd';
 import GlobalContext from '@contexts/global';
 import { wechatExpirySec } from '@configs';
 
+const payHost = import.meta.env.PUBLIC_PAY_GATEWAY;
+
 const WepayButton: FC<{
   email: string;
   enableDesc?: boolean;
@@ -21,7 +23,7 @@ const WepayButton: FC<{
 
   const link = (
     <a
-      href={`/wepay?Email=${email}&Price=${price}&Expiry=${expiry}&Tier=${tier}`}
+      href={`${payHost}/wepay?user=${email}&price=${price}&expiry=${expiry}&tier=${tier}`}
       target="blank"
       className="inline-flex items-center		"
     >
