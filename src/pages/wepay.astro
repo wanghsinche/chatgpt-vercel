@@ -31,13 +31,14 @@ const base64 = `data:image/jpg;base64,${Buffer.from(buff).toString('base64')}`;
   `;
   const expiry = Number(new URLSearchParams(location.search).get('Expiry'));
   const price = new URLSearchParams(location.search).get('Price');
+  const product = new URLSearchParams(location.search).get('Product');
   const email = new URLSearchParams(location.search).get('Email');
   document.getElementById('email').innerText = email;
   document.getElementById('price').innerText = price;
   if (expiry && Date.now() < expiry) {
     fetch('/api/wepaynotify', {
       method: 'post',
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, product }),
     }).then(() => {
       console.log('notified');
     });

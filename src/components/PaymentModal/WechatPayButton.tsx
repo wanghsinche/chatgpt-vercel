@@ -2,28 +2,28 @@ import { FC, useContext, useEffect, useState } from 'react';
 import { Button, Card, Tag } from 'antd';
 import GlobalContext from '@contexts/global';
 import { wechatExpirySec } from '@configs';
+import { IProductInfo, productDetail } from '@utils/priceModel';
 
 const payHost = import.meta.env.PUBLIC_PAY_GATEWAY;
 
 const WepayButton: FC<{
   email: string;
   enableDesc?: boolean;
-  price?: number;
-  tier?: number;
-}> = ({ email, enableDesc = false, price = 19, tier = 2 }) => {
+  product?: IProductInfo;
+}> = ({ email, enableDesc = false, product = productDetail.default }) => {
   const [expiry, setExpiry] = useState(Date.now() + 1000 * wechatExpirySec);
   const { i18n } = useContext(GlobalContext);
 
   useEffect(() => {
     const t = setInterval(() => {
       setExpiry(Date.now() + 1000 * wechatExpirySec);
-    }, 30000);
+    }, 10000);
     return () => clearInterval(t);
   }, []);
 
   const link = (
     <a
-      href={`${payHost}/wepay?user=${email}&price=${price}&expiry=${expiry}&tier=${tier}`}
+      href={`${payHost}/wepay?user=${email}&price=${product.price}&expiry=${expiry}&extra=${product.product}`}
       target="blank"
       className="inline-flex items-center		"
     >
@@ -44,15 +44,17 @@ const WepayButton: FC<{
         bordered
         title={
           <div className="flex justify-center">
-            <Tag color="gold">Chatgpt {tier}M月度流量包</Tag>
+            <Tag color="gold">
+              Chatgpt {product.credit / 1000}M 额度月度流量包
+            </Tag>
           </div>
         }
       >
         <div className="text-gray-800 text-2xl  text-center">
-          ¥{Number(price).toFixed(2)}
+          ¥{Number(product.price).toFixed(2)}
         </div>
         <div className="text-gray-800 text-lg  text-center">
-          1M流量约等于1000次对话
+          1M 约等于1000次对话
         </div>
         <div className="flex justify-center items-center py-6">{btn}</div>
       </Card>

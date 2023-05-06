@@ -86,6 +86,9 @@
       "prettier --write"
     ]
   },
+  "browser": {
+    "crypto": false
+  },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged --concurrent false"
   }
