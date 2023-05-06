@@ -85,7 +85,7 @@ export const get: APIRoute = async ({ request, cookies }) => {
     new Date(Date.now() + productInfo.duration)
   );
 
-  botMsg(`${email} added ${productInfo.credit}`);
+  await botMsg(`${email} added ${productInfo.credit}`);
 
   return new Response(
     JSON.stringify({ msg: `ok, added ${productInfo.credit} to user ${email}` }),
