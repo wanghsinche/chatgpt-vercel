@@ -43,7 +43,7 @@ const Configuration: FC<ConfigurationProps> = ({
                 setConversations({
                   [defaultConversation.id]: {
                     ...defaultConversation,
-                    title: i18n.status_empty,
+                    createdAt: Date.now(),
                   },
                 });
                 setCurrentId(defaultConversation.id);
