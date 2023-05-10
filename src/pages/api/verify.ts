@@ -28,8 +28,14 @@ export const get: APIRoute = async ({ request, cookies }) => {
   });
 
   if (verifyRes.error) {
-    return new Response(JSON.stringify({ msg: verifyRes.error.message }), {
-      status: 400,
+    // return new Response(JSON.stringify({ msg: verifyRes.error.message }), {
+    //   status: 400,
+    // });
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: siteUrl,
+      },
     });
   }
 
