@@ -46,6 +46,7 @@ export const post: APIRoute = async ({ request, cookies }) => {
   });
 
   if (myselfRes.error || !myselfRes.data?.user) {
+    console.error(`[Login Failed] ${email}`);
     return new Response(
       JSON.stringify({ msg: myselfRes.error.message || 'Login failed' }),
       {
