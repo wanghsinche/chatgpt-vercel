@@ -1,17 +1,15 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext } from 'react';
 import { Button, Card, Tag } from 'antd';
 import GlobalContext from '@contexts/global';
-import { wechatExpirySec } from '@configs';
+import swr from 'swr';
 import { IProductInfo, productDetail } from '@utils/priceModel';
-
-const payHost = import.meta.env.PUBLIC_PAY_GATEWAY;
+import { myRequest } from '@utils/request';
 
 const WepayButton: FC<{
   email: string;
   enableDesc?: boolean;
   product?: IProductInfo;
-}> = ({ email, enableDesc = false, product = productDetail.default }) => {
-  const [expiry, setExpiry] = useState(Date.now() + 1000 * wechatExpirySec);
+}> = ({ enableDesc = false, product = productDetail.default }) => {
   const { i18n, isMobile } = useContext(GlobalContext);
 
   const { data, error, isValidating } = swr(
@@ -28,7 +26,7 @@ const WepayButton: FC<{
 
   const link = (
     <a
-      href={`${payHost}/wepay?user=${email}&price=${product.price}&expiry=${expiry}&extra=${product.product}`}
+      href={data?.checkout?.url}
       target="blank"
       className="inline-flex items-center		"
     >
@@ -37,11 +35,20 @@ const WepayButton: FC<{
   );
 
   const btn = (
-    <Button className="!bg-green-500 !hover:bg-green-600 !text-white rounded-md px-8 py-2 w-full !h-auto !border-transparent	">
+    <Button
+      loading={isValidating}
+      className="!bg-green-500 !hover:bg-green-600 !text-white rounded-md px-8 py-2 w-full !h-auto !border-transparent	"
+    >
       {link}
     </Button>
   );
-
+  if (error) {
+    return (
+      <Card className="rounded-md shadow-md" bordered>
+        {String(error)}
+      </Card>
+    );
+  }
   if (enableDesc)
     return (
       <Card
