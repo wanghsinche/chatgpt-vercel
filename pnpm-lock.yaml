@@ -61,6 +61,9 @@ dependencies:
   markdown-it-kbd:
     specifier: ^2.2.2
     version: 2.2.2
+  midjourney-fetch:
+    specifier: 0.1.2
+    version: 0.1.2
   react:
     specifier: ^18.0.0
     version: 18.2.0
@@ -4268,6 +4271,11 @@ packages:
     dependencies:
       braces: 3.0.2
       picomatch: 2.3.1
+
+  /midjourney-fetch@0.1.2:
+    resolution: {integrity: sha512-iORjqkMckpdS79YCNVSQc0Z89fBGgYFU3CCFUNrYaKQea3304A6iCO4KnPQsY7a6XgGNbKHi0m+L2ROJqVVyRA==}
+    engines: {node: '>=18', pnpm: '>=8'}
+    dev: false
 
   /mime@1.6.0:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}

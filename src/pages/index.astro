@@ -17,12 +17,14 @@ const supabaseClient = createRouteHandlerSupabaseClient({
   cookies: () => Astro.cookies,
 });
 const myself = await supabaseClient.auth.getUser();
+// read inVercel from process.env
+const inVercel = !!process.env.VERCEL;
 ---
 
 <Layout title="ChatGPT">
   <div id="container">
     {!myself.data.user && <Login client:only="react" />}
-    {myself.data.user && <Main client:only="react" lang={lang} />}
+    {myself.data.user && <Main client:only="react" lang={lang} inVercel={inVercel} />}
   </div>
 </Layout>
 

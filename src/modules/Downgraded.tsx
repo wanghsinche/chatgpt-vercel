@@ -14,7 +14,7 @@ export const UpdatePassword = () => (
     <OriginUpdatePassword />
   </DowngradeAntd>
 );
-export const Main = (p: { lang: Lang }) => (
+export const Main = (p: { lang: Lang; inVercel: boolean }) => (
   <DowngradeAntd>
     <OriginMain {...p} />
   </DowngradeAntd>
