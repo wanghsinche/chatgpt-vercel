@@ -64,4 +64,3 @@ export const defaultConversation: Conversation = {
 export const consumptionEveryTime = 2000;
 export const cookieName = 'supabase-auth-token';
 export const noLoginCode = 401;
-export const wechatExpirySec = 120;
