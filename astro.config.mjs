@@ -10,12 +10,12 @@ export default defineConfig({
   integrations: [solidJs(), tailwind(), react()],
   output: 'server',
   adapter: process.env.VERCEL
-    ? vercel({ analytics: true })
+    ? vercel({ analytics: false })
     : node({ mode: 'standalone' }),
   vite: {
     define: {
-      'process.env': process.env
-    },  
+      'process.env': process.env,
+    },
     plugins: [
       checker({
         typescript: true,
