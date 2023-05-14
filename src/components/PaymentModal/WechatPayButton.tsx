@@ -14,12 +14,17 @@ const WepayButton: FC<{
   const [expiry, setExpiry] = useState(Date.now() + 1000 * wechatExpirySec);
   const { i18n, isMobile } = useContext(GlobalContext);
 
-  useEffect(() => {
-    const t = setInterval(() => {
-      setExpiry(Date.now() + 1000 * wechatExpirySec);
-    }, 10000);
-    return () => clearInterval(t);
-  }, []);
+  const { data, error, isValidating } = swr(
+    ['checkout', product.product],
+    () =>
+      myRequest('/api/semipaycheckout', {
+        method: 'POST',
+        body: JSON.stringify({ product: product.product }),
+      }),
+    {
+      revalidateOnFocus: false,
+    }
+  );
 
   const link = (
     <a
