@@ -19,9 +19,6 @@ const WepayButton: FC<{
         method: 'POST',
         body: JSON.stringify({ product: product.product }),
       }),
-    {
-      revalidateOnFocus: false,
-    }
   );
 
   const link = (
