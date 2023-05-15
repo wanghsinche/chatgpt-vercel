@@ -12,13 +12,11 @@ const WepayButton: FC<{
 }> = ({ enableDesc = false, product = productDetail.default }) => {
   const { i18n, isMobile } = useContext(GlobalContext);
 
-  const { data, error, isValidating } = swr(
-    ['checkout', product.product],
-    () =>
-      myRequest('/api/semipaycheckout', {
-        method: 'POST',
-        body: JSON.stringify({ product: product.product }),
-      }),
+  const { data, error, isValidating } = swr(['checkout', product.product], () =>
+    myRequest('/api/semipaycheckout', {
+      method: 'POST',
+      body: JSON.stringify({ product: product.product }),
+    })
   );
 
   const link = (
