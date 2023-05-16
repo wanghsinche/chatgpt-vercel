@@ -3,8 +3,6 @@ import type { APIRoute } from 'astro';
 import { loadBalancer } from '@utils/server';
 import { createOpenjourney } from 'replicate-fetch';
 import { SupportedImageModels } from '@configs';
-import { withPriceModel } from '@utils/priceModel';
-
 import { Midjourney, findMessageByPrompt } from 'midjourney-fetch';
 import {
   apiKeyStrategy,
@@ -19,14 +17,14 @@ import {
 
 export { config };
 
-export const get: APIRoute = withPriceModel(async ({ request }) => {
+export const get: APIRoute = async ({ request }) => {
   const { url } = request;
   const params = new URL(url).searchParams;
 
   const model = params.get('model') as SupportedImageModels;
   const serverId = params.get('serverId') ?? dicordServerId;
   const channelId = params.get('channelId') ?? discordChannelId;
-  const token = params.get('token') ?? discordToken;
+  const token = params.get('discordToken') ?? discordToken;
   const prompt = params.get('prompt');
 
   if (model === 'Midjourney') {
@@ -68,9 +66,9 @@ export const get: APIRoute = withPriceModel(async ({ request }) => {
   }
 
   return new Response(JSON.stringify({ data: {} }), { status: 200 });
-});
+};
 
-export const post: APIRoute = withPriceModel(async ({ request }) => {
+export const post: APIRoute = async ({ request }) => {
   const body = await request.json();
   const {
     prompt,
@@ -204,4 +202,6 @@ export const post: APIRoute = withPriceModel(async ({ request }) => {
       status: 500,
     });
   }
-});
+};
+
+export const post = withPriceModel(originalPost);
