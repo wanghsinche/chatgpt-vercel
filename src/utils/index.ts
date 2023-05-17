@@ -1,3 +1,4 @@
+import { LayoutConfig } from '@configs';
 import { Conversation, Message, RecordCardItem } from '@interfaces';
 
 export const getMaxIndex = (tabs: RecordCardItem[]) => {
@@ -87,4 +88,15 @@ export const wxGoToHell = () => {
     div.style.zIndex = '9999';
     document.body.appendChild(div);
   }
+};
+
+export const setClassByLayout = (layout?: LayoutConfig) => {
+  const container = document.querySelector('#container');
+  const classMap: Record<LayoutConfig, string> = {
+    default: 'container-default',
+    loose: 'container-loose',
+    full: 'container-full',
+  };
+  const targetClass = classMap[layout ?? 'default'];
+  container.className = targetClass;
 };
