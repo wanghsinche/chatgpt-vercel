@@ -49,7 +49,7 @@ async function core(email: string, productInfo: IProductInfo) {
 
 export const post: APIRoute = async ({ request }) => {
   const query = new URL(request.url).searchParams;
-  const token = query.get('Token');
+  const token = query.get('token');
 
   const { price, user, extra, uid, remark, timestamp } = await request.json();
 
