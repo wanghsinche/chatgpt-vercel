@@ -1,7 +1,8 @@
 import type { APIRoute } from 'astro';
 import { createRouteHandlerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { botMsg } from '@utils/bot';
-import { productDetail } from '@utils/priceModel';
+import { IProductInfo, productDetail } from '@utils/priceModel';
+import { hmac } from '@utils/hmac';
 import { updateCredit } from './stripe';
 
 const TOKEN_EXPIRATION = 1 * 60 * 1000; // 1 minutes in milliseconds
@@ -35,6 +36,53 @@ function verifyConfirmToken(token: string, tm: string) {
 
   return true;
 }
+
+async function core(email: string, productInfo: IProductInfo) {
+  await updateCredit(
+    email,
+    productInfo.credit,
+    new Date(Date.now() + productInfo.duration)
+  );
+
+  await botMsg(`${email} added ${productInfo.credit}`);
+}
+
+export const post: APIRoute = async ({ request }) => {
+  const query = new URL(request.url).searchParams;
+  const token = query.get('Token');
+
+  const { price, user, extra, uid, remark, timestamp } = await request.json();
+
+  const info = {
+    price,
+    user,
+    extra,
+    uid,
+    remark,
+    timestamp,
+  };
+  const text = Object.keys(info)
+    .sort()
+    .map((k) => info[k])
+    .join(',');
+
+  const shouldBe = await hmac(manualKey, text);
+
+  if (token !== shouldBe) {
+    return new Response(JSON.stringify({ msg: `wrong token ${token}` }), {
+      status: 400,
+    });
+  }
+
+  const productInfo = productDetail[extra];
+
+  await core(user, productInfo);
+
+  return new Response(
+    JSON.stringify({ msg: `ok, added ${productInfo.credit} to user ${user}` }),
+    { status: 200 }
+  );
+};
 
 export const get: APIRoute = async ({ request, cookies }) => {
   const query = new URL(request.url).searchParams;
@@ -83,14 +131,7 @@ export const get: APIRoute = async ({ request, cookies }) => {
       { status: 400 }
     );
   }
-
-  await updateCredit(
-    email,
-    productInfo.credit,
-    new Date(Date.now() + productInfo.duration)
-  );
-
-  await botMsg(`${email} added ${productInfo.credit}`);
+  await core(email, productInfo);
 
   return new Response(
     JSON.stringify({ msg: `ok, added ${productInfo.credit} to user ${email}` }),
