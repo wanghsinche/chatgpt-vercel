@@ -22,9 +22,13 @@ const inVercel = !!process.env.VERCEL;
 ---
 
 <Layout title="ChatGPT">
-  <div id="container">
+  <div id="container" class="container-default">
     {!myself.data.user && <Login client:only="react" />}
-    {myself.data.user && <Main client:only="react" lang={lang} inVercel={inVercel} />}
+    {
+      myself.data.user && (
+        <Main client:only="react" lang={lang} inVercel={inVercel} />
+      )
+    }
   </div>
 </Layout>
 

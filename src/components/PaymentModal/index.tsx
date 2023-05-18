@@ -33,7 +33,7 @@ const PaymentModal: FC<PaymentModalProps & Omit<ModalProps, 'onOk'>> = ({
     data: account,
     error,
     isLoading,
-  } = swr<IAccount>('account', async () =>
+  } = swr<IAccount>(rest.open && ['account', rest.open], async () =>
     myRequest('/api/account', {
       method: 'get',
     })

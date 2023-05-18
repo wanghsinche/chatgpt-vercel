@@ -1,74 +1,87 @@
-lockfileVersion: 5.4
-
-specifiers:
-  '@astrojs/node': ^5.1.1
-  '@astrojs/react': ^2.1.0
-  '@astrojs/solid-js': ^2.1.0
-  '@astrojs/tailwind': ^3.1.1
-  '@astrojs/vercel': ^3.2.1
-  '@esbuild/darwin-arm64': ^0.16.17
-  '@tailwindcss/typography': ^0.5.9
-  '@types/lodash-es': ^4.17.7
-  '@types/node': ^18.15.3
-  '@types/react': ^18.0.28
-  '@types/react-dom': ^18.0.11
-  '@typescript-eslint/eslint-plugin': ^5.55.0
-  '@typescript-eslint/parser': ^5.55.0
-  antd: ^5.3.2
-  astro: ^2.1.3
-  astro-eslint-parser: ^0.12.0
-  cross-env: ^7.0.3
-  dayjs: ^1.11.7
-  eslint: ^8.36.0
-  eslint-config-airbnb-base: ^15.0.0
-  eslint-config-prettier: ^8.7.0
-  eslint-plugin-astro: ^0.25.0
-  eslint-plugin-import: ^2.27.5
-  eslint-plugin-prettier: ^4.2.1
-  eslint-plugin-react: ^7.32.2
-  eslint-plugin-react-hooks: ^4.6.0
-  eventsource-parser: ^1.0.0
-  highlight.js: ^11.7.0
-  katex: ^0.16.4
-  lint-staged: ^13.2.0
-  lodash-es: ^4.17.21
-  markdown-it: ^13.0.1
-  markdown-it-highlightjs: ^4.0.1
-  markdown-it-kbd: ^2.2.2
-  midjourney-fetch: 0.1.3
-  prettier: ^2.8.4
-  prettier-plugin-astro: ^0.8.0
-  punycode: ^2.3.0
-  react: ^18.0.0
-  react-dom: ^18.0.0
-  replicate-fetch: ^0.1.1
-  simple-git-hooks: ^2.8.1
-  solid-js: ^1.6.15
-  tailwindcss: ^3.2.7
-  typescript: ^4.9.5
-  vite-plugin-checker: ^0.5.6
+lockfileVersion: '6.0'
 
 dependencies:
-  '@astrojs/node': 5.1.1_astro@2.1.3
-  '@astrojs/react': 2.1.0_3xleytyzprlgycb2ded54tx72i
-  '@astrojs/solid-js': 2.1.0_7uigyi4tkcw6gykyu6d63dasc4
-  '@astrojs/tailwind': 3.1.1_2l4ywwlgzw2satesmi43zum3jy
-  '@astrojs/vercel': 3.2.1_astro@2.1.3+react@18.2.0
-  antd: 5.3.2_biqbaboplfbrettd7655fr4n2y
-  astro: 2.1.3_@types+node@18.15.3
-  dayjs: 1.11.7
-  eventsource-parser: 1.0.0
-  highlight.js: 11.7.0
-  katex: 0.16.4
-  lodash-es: 4.17.21
-  markdown-it: 13.0.1
-  markdown-it-highlightjs: 4.0.1
-  markdown-it-kbd: 2.2.2
-  midjourney-fetch: 0.1.3
-  react: 18.2.0
-  react-dom: 18.2.0_react@18.2.0
-  replicate-fetch: 0.1.1
-  solid-js: 1.6.15
+  '@ant-design/cssinjs':
+    specifier: ^1.9.1
+    version: 1.9.1(react-dom@18.2.0)(react@18.2.0)
+  '@astrojs/node':
+    specifier: ^5.1.1
+    version: 5.1.1(astro@2.1.3)
+  '@astrojs/react':
+    specifier: ^2.1.0
+    version: 2.1.0(@types/react-dom@18.0.11)(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
+  '@astrojs/solid-js':
+    specifier: ^2.1.0
+    version: 2.1.0(@babel/core@7.21.3)(solid-js@1.6.15)(vite@4.1.4)
+  '@astrojs/tailwind':
+    specifier: ^3.1.1
+    version: 3.1.1(astro@2.1.3)(tailwindcss@3.2.7)
+  '@astrojs/vercel':
+    specifier: ^3.2.1
+    version: 3.2.1(astro@2.1.3)(react@18.2.0)
+  '@supabase/auth-helpers-nextjs':
+    specifier: ^0.6.1
+    version: 0.6.1(@supabase/supabase-js@2.21.0)
+  '@supabase/supabase-js':
+    specifier: ^2.21.0
+    version: 2.21.0
+  antd:
+    specifier: ^5.3.2
+    version: 5.3.2(react-dom@18.2.0)(react@18.2.0)
+  astro:
+    specifier: ^2.1.3
+    version: 2.1.3(@types/node@18.15.3)
+  dayjs:
+    specifier: ^1.11.7
+    version: 1.11.7
+  event-target-polyfill:
+    specifier: ^0.0.3
+    version: 0.0.3
+  eventsource-parser:
+    specifier: ^1.0.0
+    version: 1.0.0
+  gpt3-tokenizer:
+    specifier: ^1.1.5
+    version: 1.1.5
+  highlight.js:
+    specifier: ^11.7.0
+    version: 11.7.0
+  katex:
+    specifier: ^0.16.4
+    version: 0.16.4
+  lodash-es:
+    specifier: ^4.17.21
+    version: 4.17.21
+  markdown-it:
+    specifier: ^13.0.1
+    version: 13.0.1
+  markdown-it-highlightjs:
+    specifier: ^4.0.1
+    version: 4.0.1
+  markdown-it-kbd:
+    specifier: ^2.2.2
+    version: 2.2.2
+  midjourney-fetch:
+    specifier: 0.1.3
+    version: 0.1.3
+  react:
+    specifier: ^18.0.0
+    version: 18.2.0
+  react-dom:
+    specifier: ^18.0.0
+    version: 18.2.0(react@18.2.0)
+  replicate-fetch:
+    specifier: ^0.1.1
+    version: 0.1.1
+  solid-js:
+    specifier: ^1.6.15
+    version: 1.6.15
+  stripe:
+    specifier: ^12.3.0
+    version: 12.3.0
+  swr:
+    specifier: ^2.1.5
+    version: 2.1.5(react@18.2.0)
 
 devDependencies:
   '@esbuild/darwin-arm64':
@@ -4259,7 +4272,7 @@ packages:
       braces: 3.0.2
       picomatch: 2.3.1
 
-  /midjourney-fetch/0.1.3:
+  /midjourney-fetch@0.1.3:
     resolution: {integrity: sha512-2MqBCGZH7ay4I1b+7RQkhRIxWs+YyN5umP/WJy84MzJtTc+Vf18uENYYK7KK4/fx1G3tCvYA1yncJ9jCjzv6JA==}
     engines: {node: '>=18', pnpm: '>=8'}
     dev: false

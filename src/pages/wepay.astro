@@ -11,7 +11,7 @@ const base64 = `data:image/jpg;base64,${Buffer.from(buff).toString('base64')}`;
 ---
 
 <Layout title="ChatGPT">
-  <div id="container">
+  <div id="container" class="container-default">
     <div id="textContent"></div>
     <img src={base64} width="400" />
   </div>
