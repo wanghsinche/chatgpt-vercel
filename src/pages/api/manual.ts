@@ -69,6 +69,7 @@ export const post: APIRoute = async ({ request }) => {
   const shouldBe = await hmac(manualKey, text);
 
   if (token !== shouldBe) {
+    console.log(token, shouldBe, info);
     return new Response(JSON.stringify({ msg: `wrong token ${token}` }), {
       status: 400,
     });
