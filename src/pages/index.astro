@@ -8,6 +8,7 @@ import 'highlight.js/styles/atom-one-dark.css';
 
 // read lang from env/process.env
 const lang: Lang = import.meta.env.LANGUAGE || process.env.LANGUAGE || 'en';
+const inVercel = !!process.env.VERCEL;
 const supabaseKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseClient = createRouteHandlerSupabaseClient({
