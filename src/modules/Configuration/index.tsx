@@ -12,7 +12,10 @@ import {
   supportedLanguages,
   supportedModels,
 } from '@configs';
+
 import { setClassByLayout } from '@utils';
+
+import Account from '@components/Account';
 
 const { Panel } = Collapse;
 
@@ -67,6 +70,9 @@ const Configuration: FC<ConfigurationProps> = ({
       >
         <Panel header={i18n.config_general} key="1">
           <div className="mb-6">
+            <Account />
+          </div>
+          <div className="mb-6 hidden">
             <div className="mb-2">{i18n.config_password}</div>
             <Input
               className="w-full"
@@ -78,7 +84,7 @@ const Configuration: FC<ConfigurationProps> = ({
               }
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-6 hidden">
             <div className="mb-2">OpenAI Api Key:</div>
             <Input
               className="w-full"
@@ -187,7 +193,7 @@ const Configuration: FC<ConfigurationProps> = ({
             />
           </div>
         </Panel>
-        <Panel header={i18n.chat_mode_image} key="3">
+        <Panel header={i18n.chat_mode_image} key="3" className="hidden">
           <div className="flex items-center justify-between mb-6">
             <div>{i18n.config_model}</div>
             <Select

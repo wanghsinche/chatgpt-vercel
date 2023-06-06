@@ -5,17 +5,17 @@ export const localConversationKey = 'LOCAL_CONVERSATION';
 
 // From https://platform.openai.com/docs/models/model-endpoint-compatibility
 export const supportedModels = [
-  'gpt-4',
-  'gpt-4-0314',
-  'gpt-4-32k',
-  'gpt-4-32k-0314',
+  // 'gpt-4',
+  // 'gpt-4-0314',
+  // 'gpt-4-32k',
+  // 'gpt-4-32k-0314',
   'gpt-3.5-turbo',
   'gpt-3.5-turbo-0301',
 ] as const;
 
 export type SupportedModel = (typeof supportedModels)[number];
 
-export const defaultModel: SupportedModel = 'gpt-3.5-turbo';
+export const defaultModel: SupportedModel = 'gpt-3.5-turbo-0301';
 
 export const supportedImageModels = [
   'DALL-E',
@@ -79,3 +79,7 @@ export const midjourneyConfigs = {
   timeout: 5 * 60 * 1000, // 5min
   interval: 20 * 1000, // every 20 second
 };
+
+export const consumptionEveryTime = 2000;
+export const cookieName = 'supabase-auth-token';
+export const noLoginCode = 401;
