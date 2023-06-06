@@ -73,6 +73,23 @@ export const parseConversation = (text: string): Omit<Conversation, 'id'> => {
     createdAt: Date.now(),
   };
 };
+export const setClassByLayout = (layout?: LayoutConfig) => {
+  const container = document.querySelector('#container');
+  const classMap: Record<LayoutConfig, string> = {
+    default: 'container-default',
+    loose: 'container-loose',
+    full: 'container-full',
+  };
+  const targetClass = classMap[layout ?? 'default'];
+  container.className = targetClass;
+};
+
+export const registerMediumZoom = (isMobile = false) => {
+  mediumZoom('.prose img:not(.medium-zoom-image)', {
+    background: 'rgba(0, 0, 0, 0.6)',
+    margin: isMobile ? 16 : 48,
+  });
+};
 
 export const wxGoToHell = () => {
   if (navigator.userAgent.indexOf('MicroMessenger') >= 0) {

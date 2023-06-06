@@ -75,6 +75,11 @@ export const defaultConversation: Conversation = {
   createdAt: Date.now(),
 };
 
+export const midjourneyConfigs = {
+  timeout: 5 * 60 * 1000, // 5min
+  interval: 20 * 1000, // every 20 second
+};
+
 export const consumptionEveryTime = 2000;
 export const cookieName = 'supabase-auth-token';
 export const noLoginCode = 401;

@@ -3,7 +3,11 @@ import type { APIRoute } from 'astro';
 import { loadBalancer } from '@utils/server';
 import { createOpenjourney } from 'replicate-fetch';
 import { SupportedImageModels } from '@configs';
-import { Midjourney } from 'midjourney-fetch';
+import {
+  Midjourney,
+  type MessageType,
+  type MessageTypeProps,
+} from 'midjourney-fetch';
 import { withPriceModel } from '@utils/priceModel';
 import {
   apiKeyStrategy,
@@ -19,14 +23,16 @@ import {
 export { config };
 
 export const get: APIRoute = withPriceModel(async ({ request }) => {
-  const { url } = request;
+  const { url, headers } = request;
   const params = new URL(url).searchParams;
 
   const model = params.get('model') as SupportedImageModels;
   const serverId = params.get('serverId') || dicordServerId;
   const channelId = params.get('channelId') || discordChannelId;
-  const token = params.get('token') || discordToken;
+  const token = headers.get('Authorization') || discordToken;
   const prompt = params.get('prompt');
+  const type = (params.get('type') as MessageType) || 'imagine';
+  const timestamp = params.get('timestamp');
 
   if (model === 'Midjourney') {
     if (!prompt) {
@@ -40,6 +46,23 @@ export const get: APIRoute = withPriceModel(async ({ request }) => {
       );
     }
 
+    if (!serverId || !channelId || !token) {
+      return new Response(
+        JSON.stringify({
+          msg: 'No serverId or channelId or dicordToken provided',
+        }),
+        {
+          status: 400,
+        }
+      );
+    }
+
+    const midjourney = new Midjourney({
+      serverId,
+      channelId,
+      token,
+    });
+    midjourney.debugger = true;
     try {
       let options: MessageTypeProps = { type: 'imagine', timestamp };
 
@@ -62,18 +85,12 @@ export const get: APIRoute = withPriceModel(async ({ request }) => {
         };
       }
 
-    const midjourney = new Midjourney({
-      serverId,
-      channelId,
-      token,
-    });
-    midjourney.debugger = true;
-    try {
-      const message = await midjourney.getMessage(prompt);
+      const message = await midjourney.getMessage(prompt, options);
 
       if (message) {
         return new Response(JSON.stringify(message), { status: 200 });
       }
+
       return new Response(JSON.stringify({ msg: 'No content found' }), {
         status: 200,
       });
@@ -83,7 +100,6 @@ export const get: APIRoute = withPriceModel(async ({ request }) => {
       });
     }
   }
-
   return new Response('{}', {
     status: 200,
   });
