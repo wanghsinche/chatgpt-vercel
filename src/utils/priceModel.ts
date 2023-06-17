@@ -8,8 +8,8 @@ export const priceList: Record<SupportedModel, number> = {
   // 'gpt-4-0314': 0.06,
   // 'gpt-4-32k': 0.12,
   // 'gpt-4-32k-0314': 0.12,
-  'gpt-3.5-turbo': 0.002,
-  'gpt-3.5-turbo-16k': 0.002,
+  // 'gpt-3.5-turbo': 0.002,
+  // 'gpt-3.5-turbo-16k': 0.002,
   'gpt-3.5-turbo-0613': 0.002,
   'gpt-3.5-turbo-16k-0613': 0.002,
 };
